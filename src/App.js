@@ -3,9 +3,10 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import {
-  AuthModal,
   HistoryPage,
   HomePage,
+  LoginPage,
+  SignupPage,
   LikedPage,
   PlaylistDetailsPage,
   PlaylistsPage,
@@ -62,6 +63,8 @@ function App() {
         />
 
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/mockman" element={<MockmanEs />} />
       </Routes>
