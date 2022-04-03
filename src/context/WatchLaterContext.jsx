@@ -77,7 +77,6 @@ const WatchLaterProvider = ({ children }) => {
           });
         })
         .catch((err) => {
-          console.log(err.message);
           setToast({
             show: true,
             content: `Error adding to Watch Later`,

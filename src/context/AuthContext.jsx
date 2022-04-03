@@ -78,7 +78,6 @@ const AuthProvider = ({ children }) => {
   };
   const logIn = (e) => {
     e.preventDefault();
-    console.log("Login");
     dispatch({ type: ACTION_TYPE_LOADING });
 
     axios
@@ -90,7 +89,6 @@ const AuthProvider = ({ children }) => {
         })
       )
       .then((res) => {
-        console.log(res);
         setToast({
           show: true,
           content: `Welcome, ${res.data.foundUser.firstName}`,
@@ -103,7 +101,6 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
       })
       .catch((err) => {
-        console.log(err);
         if (err.message.slice(err.message.lastIndexOf(" ") + 1) === "401")
           setToast({
             show: true,
