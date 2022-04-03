@@ -11,7 +11,7 @@ const VideosContext = createContext();
 const VideosProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const fetchVideos = async () => {
+  const getVideos = async () => {
     try {
       const res = await axios.get("/api/videos");
       return { loading: false, data: res.data.videos, error: "" };
@@ -22,7 +22,7 @@ const VideosProvider = ({ children }) => {
   const filterVideos = (tag) => {
     dispatch({ type: ACTION_TYPE_LOADING });
 
-    fetchVideos()
+    getVideos()
       .then((res) => {
         let videos = res.data.filter((video) => {
           if (tag === "All" || (tag && video.tags.includes(tag))) {
@@ -43,7 +43,7 @@ const VideosProvider = ({ children }) => {
       );
   };
 
-  const searchVideos = () => {
+  const fetchVideos = () => {
     dispatch({ type: ACTION_TYPE_LOADING });
     axios
       .get("/api/videos")
@@ -68,7 +68,7 @@ const VideosProvider = ({ children }) => {
       value={{
         videos: state,
         setVideos: dispatch,
-        searchVideos,
+        getVideos,
         fetchVideos,
         filterVideos,
       }}
