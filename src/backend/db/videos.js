@@ -29,7 +29,7 @@ export const videos = [
       "https://yt3.ggpht.com/ytc/AKedOLSlMYKje1yQizk-euPXx56lZlX7wDKOuGISTB-8=s48-c-k-c0x00ffffff-no-rj",
     creatorName: "Unsung Moron",
     thumbNail: "https://img.youtube.com/vi/PefZzwwwLjE/mqdefault.jpg",
-    viewCount: 1200345,
+    viewCount: 12003,
     videoDesc:
       "🎧 Use Headphone to feel the real 3D audio effect.This Mix contains best tracks of Neffex.",
     publishedAt: toTimestamp("07/01/2020 2:31:30"),

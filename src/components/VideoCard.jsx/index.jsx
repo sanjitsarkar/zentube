@@ -34,10 +34,10 @@ const VideoCard = ({ video }) => {
           <div className="row items-center w-full mt-05 justify-between">
             <div className="row item-center  gap-1">
               <h5 className="o-70 font-semibold">
-                {convertViewCount(video.viewCount)} Views
+                {convertViewCount(video.viewCount)} views
               </h5>
               <h5 className="o-70 font-semibold">
-                {timeSince(video.publishedAt)} Ago
+                {timeSince(video.publishedAt)} ago
               </h5>
             </div>
           </div>
