@@ -12,6 +12,7 @@ import {
   SingleVideoPage,
   WatchLaterPage,
 } from "./pages";
+import NotFound from "./pages/404";
 
 function App() {
   return (
@@ -61,7 +62,7 @@ function App() {
         />
 
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
-
+        <Route path="*" element={<NotFound />} />
         <Route path="/mockman" element={<MockmanEs />} />
       </Routes>
     </>
