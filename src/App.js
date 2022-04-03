@@ -1,42 +1,70 @@
-import "./App.css";
-import logo from "./logo.png";
+import MockmanEs from "mockman-js";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import {
+  AuthModal,
+  HistoryPage,
+  HomePage,
+  LikedPage,
+  PlaylistDetailsPage,
+  PlaylistsPage,
+  SingleVideoPage,
+  WatchLaterPage,
+} from "./pages";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/history"
+          element={
+            <PrivateRoute>
+              <HistoryPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/watch-later"
+          element={
+            <PrivateRoute>
+              <WatchLaterPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/liked"
+          element={
+            <PrivateRoute>
+              <LikedPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/playlist"
+          element={
+            <PrivateRoute>
+              <PlaylistsPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/playlists/:id"
+          element={
+            <PrivateRoute>
+              <PlaylistDetailsPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/watch/v/:id" element={<SingleVideoPage />} />
+
+        <Route path="/mockman" element={<MockmanEs />} />
+      </Routes>
+    </>
   );
 }
 
