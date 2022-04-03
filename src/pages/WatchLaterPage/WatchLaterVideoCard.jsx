@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { TrashIcon } from "../../assets/icons";
+import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertViewCount, timeSince } from "../../utils";
-import ActionBar from "./ActionBar";
 
-const VideoCard = ({ video }) => {
-  const [showActionBar, setShowActionBar] = useState(false);
+const WatchLaterVideoCard = ({ video }) => {
+  const { removeFromWatchLater } = useWatchLater();
   return (
     <div className="card card-md card-dark" id="video-card">
       <Link to={`/watch/v/${video._id}`}>
@@ -21,14 +22,12 @@ const VideoCard = ({ video }) => {
         <div className="card-body">
           <div className="flex items-start justify-between relative">
             <h3 className="card-title">{video.title}</h3>
-            {showActionBar && (
-              <ActionBar video={video} show={setShowActionBar} />
-            )}
+
             <button
-              className="more-option-btn w-0 btn-dark"
-              onClick={() => setShowActionBar(!showActionBar)}
+              className="w-0"
+              onClick={() => removeFromWatchLater(video._id)}
             >
-              <i className="fa-solid fa-ellipsis-vertical fa-lg"></i>
+              <i className="fa fa-trash fa-lg text-tertiary"></i>
             </button>
           </div>
           <div className="row items-center w-full mt-05 justify-between">
@@ -58,4 +57,4 @@ const VideoCard = ({ video }) => {
   );
 };
 
-export default VideoCard;
+export default WatchLaterVideoCard;

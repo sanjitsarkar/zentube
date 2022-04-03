@@ -6,7 +6,7 @@ const ActionButton = ({ id, title, Icon, show, onClick }) => {
       className="row items-center text-sm gap-05 p-0 font-bold"
       onClick={() => {
         show(false);
-        onClick;
+        onClick();
       }}
     >
       {<Icon width={"1.8rem"} />}
