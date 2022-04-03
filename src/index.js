@@ -10,6 +10,8 @@ import { NavProvider } from "./context/NavContext";
 import { WatchLaterProvider } from "./context/WatchLaterContext";
 import { ToastProvider } from "./context/ToastContext";
 import { AuthProvider } from "./context/AuthContext";
+import { PlaylistProvider } from "./context/PlaylistsContext";
+import { PlaylistModalProvider } from "./context/PlaylistModalContext";
 
 // Call make Server
 makeServer();
@@ -20,13 +22,17 @@ ReactDOM.render(
       <ToastProvider>
         <NavProvider>
           <AuthProvider>
-            <TagProvider>
-              <VideosProvider>
-                <WatchLaterProvider>
-                  <App />
-                </WatchLaterProvider>
-              </VideosProvider>
-            </TagProvider>
+            <PlaylistModalProvider>
+              <TagProvider>
+                <VideosProvider>
+                  <WatchLaterProvider>
+                    <PlaylistProvider>
+                      <App />
+                    </PlaylistProvider>
+                  </WatchLaterProvider>
+                </VideosProvider>
+              </TagProvider>
+            </PlaylistModalProvider>
           </AuthProvider>
         </NavProvider>
       </ToastProvider>

@@ -67,7 +67,7 @@ const VideosProvider = ({ children }) => {
       });
   };
   useEffect(() => {
-    searchVideos();
+    fetchVideos();
   }, []);
   return (
     <VideosContext.Provider
