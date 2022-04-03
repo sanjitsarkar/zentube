@@ -17,7 +17,7 @@ body {
   background-color: var(--dark-black);
 }
 
-img .img .img-rounded {
+#img-rounded {
   border-radius: 50%;
 }
 
@@ -55,7 +55,8 @@ img.card-img:hover ~ i.fa-play {
   overflow: hidden;
 }
 
-.tag {
+.tag,
+.auth-button {
   font-size: 0.9rem;
   padding: 0.5em 1em;
   border-radius: 3rem;
@@ -74,5 +75,24 @@ img.card-img:hover ~ i.fa-play {
   max-width: 30rem;
   width: unset;
   min-width: 16rem;
+}
+
+/* Login and Sign Up Form Stying Section */
+form.form {
+  background-color: var(--light-grey);
+  margin-bottom: 15vh;
+  margin-top: 20vh;
+}
+
+@media only screen and (max-width: 535px) {
+  form.form {
+    padding: 1rem;
+  }
+}
+
+#toast {
+  right: 1rem;
+  top: 16vh;
+  left: auto;
 }
 /*# sourceMappingURL=index.css.map */

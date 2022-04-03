@@ -1,4 +1,5 @@
-import AuthModal from "./AuthModal";
+import LoginPage from "./AuthPage/Login";
+import SignupPage from "./AuthPage/SignupPage";
 import HistoryPage from "./HistoryPage";
 import HomePage from "./HomePage";
 import LikedPage from "./LikedPage";
@@ -8,7 +9,8 @@ import SingleVideoPage from "./SingleVideoPage";
 import WatchLaterPage from "./WatchLaterPage";
 
 export {
-  AuthModal,
+  LoginPage,
+  SignupPage,
   HistoryPage,
   HomePage,
   LikedPage,

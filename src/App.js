@@ -2,10 +2,13 @@ import MockmanEs from "mockman-js";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
+import Toast from "./components/Toast";
+import { useToast } from "./context/ToastContext";
 import {
-  AuthModal,
   HistoryPage,
   HomePage,
+  LoginPage,
+  SignupPage,
   LikedPage,
   PlaylistDetailsPage,
   PlaylistsPage,
@@ -15,6 +18,8 @@ import {
 import NotFound from "./pages/404";
 
 function App() {
+  const { toast } = useToast();
+
   return (
     <>
       <Routes>
@@ -62,9 +67,12 @@ function App() {
         />
 
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/mockman" element={<MockmanEs />} />
       </Routes>
+      <Toast content={toast.content} type={toast.type} show={toast.show} />
     </>
   );
 }
