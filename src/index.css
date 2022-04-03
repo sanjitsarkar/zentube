@@ -66,13 +66,13 @@ img.card-img:hover ~ i.fa-play {
   display: -ms-grid;
   display: grid;
   justify-items: center;
-  -ms-grid-columns: (minmax(20rem, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
 
 #video-card {
   max-width: 30rem;
   width: unset;
-  min-width: 20rem;
+  min-width: 16rem;
 }
 /*# sourceMappingURL=index.css.map */
