@@ -5,7 +5,9 @@ const Tag = ({ name, active, setActive }) => {
   const { filterVideos } = useVideos();
   return (
     <button
-      className={`btn ${active ? "btn-primary" : "btn-outline-primary"} tag`}
+      className={`btn font-bold ${
+        active ? "btn-primary" : "btn-outline-primary"
+      } tag`}
       onClick={() => {
         setActive(name);
         filterVideos(name);

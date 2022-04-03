@@ -1,31 +1,18 @@
-import React, { useState } from "react";
-import {
-  HistoryIcon,
-  WatchLaterIcon,
-  LikedIcon,
-  HomeIcon,
-  PlaylistPlayIcon,
-} from "../../assets/icons";
+import React from "react";
 import SideBarItem from "./SideBarItem";
 import "./SideBar.css";
+import { useNav } from "../../context/NavContext";
 const SideBar = () => {
-  const [activeItem, setActiveItem] = useState("Home");
-  const sideBarItems = [
-    { name: "Home", icon: <HomeIcon />, to: "" },
-    { name: "Playlist", icon: <PlaylistPlayIcon />, to: "playlist" },
-    { name: "Liked Videos", icon: <LikedIcon />, to: "liked" },
-    { name: "Watch Later", icon: <WatchLaterIcon />, to: "watch-later" },
-    { name: "History", icon: <HistoryIcon />, to: "history" },
-  ];
+  const { sideBarItems, activeItem, setActiveItem } = useNav();
   return (
-    <ul className="side-bar col bx-sh-primary-2   h-screen ">
+    <ul className="side-bar col bx-sh-primary-2 h-screen ">
       {sideBarItems.map((item) => (
         <SideBarItem
           to={item.to}
           key={item.name}
           name={item.name}
           icon={item.icon}
-          active={item.name === activeItem}
+          active={activeItem === item.name}
           setActive={setActiveItem}
         />
       ))}

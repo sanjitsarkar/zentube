@@ -7,7 +7,7 @@ const VideoGrid = () => {
   const { videos } = useVideos();
 
   return (
-    <div className="row flex-wrap mt-3 gap-1">
+    <div className="grid mt-3 gap-1 video-grid">
       {videos.loading && <Loader />}
       {!videos.loading &&
         videos.data.length > 0 &&
