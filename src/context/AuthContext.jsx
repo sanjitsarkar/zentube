@@ -16,21 +16,22 @@ import {
 import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
-
+const initialSignupCredState = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  firstName: "",
+  lastName: "",
+};
+const initialLoginCredState = { email: "", password: "" };
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { setToast } = useToast();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(localStorage?.getItem("token"));
-  const [loginCred, setLoginCred] = useState({ email: "", password: "" });
-  const [signupCred, setSignupCred] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-  });
+  const [loginCred, setLoginCred] = useState(initialLoginCredState);
+  const [signupCred, setSignupCred] = useState(initialSignupCredState);
 
   const signUp = (e) => {
     e.preventDefault();
@@ -59,6 +60,7 @@ const AuthProvider = ({ children }) => {
           content: `Welcome, ${res.data.createdUser.firstName}`,
           type: "info",
         });
+        setSignupCred(initialSignupCredState);
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.createdUser });
 
         setIsLoggedIn(true);
@@ -76,6 +78,7 @@ const AuthProvider = ({ children }) => {
   };
   const logIn = (e) => {
     e.preventDefault();
+    console.log("Login");
     dispatch({ type: ACTION_TYPE_LOADING });
 
     axios
@@ -87,18 +90,20 @@ const AuthProvider = ({ children }) => {
         })
       )
       .then((res) => {
+        console.log(res);
         setToast({
           show: true,
           content: `Welcome, ${res.data.foundUser.firstName}`,
           type: "info",
         });
         localStorage.setItem("token", res.data.encodedToken);
-
+        setLoginCred(initialLoginCredState);
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.foundUser });
 
         setIsLoggedIn(true);
       })
       .catch((err) => {
+        console.log(err);
         if (err.message.slice(err.message.lastIndexOf(" ") + 1) === "401")
           setToast({
             show: true,

@@ -17,7 +17,7 @@ const Header = () => {
               Zen<span className="text-primary">Tube</span>
             </Link>
           </div>
-          <div className="right">
+          <div className="right row items-center ">
             <div className="input-box input input-dark">
               <i className="fa fa-search"></i>
               <input
@@ -34,21 +34,14 @@ const Header = () => {
          
         }`}
       >
-        <i className="search-icon fa fa-search "></i>
+        <i className="search-icon fa fa-search text-primary fa-xl flex  "></i>
 
         {!isLoggedIn && (
-          <>
-            <li>
-              <Link to="/login" className="btn btn-primary">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/signup" className="btn btn-secondary">
-                Signup
-              </Link>
-            </li>
-          </>
+          <li>
+            <Link to="/login" className="btn btn-primary auth-button">
+              Login
+            </Link>
+          </li>
         )}
         {isLoggedIn && (
           <>

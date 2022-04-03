@@ -45,7 +45,8 @@ const VideoCard = ({ video }) => {
             <img
               src={video.creatorImage}
               alt={video.creatorName}
-              className="img img-rounded w-10 h-10"
+              className="w-10 h-10"
+              id="img-rounded"
             />
             <h4 className="o-70 font-normal channel-name">
               {video.creatorName}
