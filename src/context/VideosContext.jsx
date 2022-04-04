@@ -62,7 +62,6 @@ const VideosProvider = ({ children }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         if (filters.type === "related") {
           dispatchRelatedVideos({
             type: ACTION_TYPE_FAILURE,
