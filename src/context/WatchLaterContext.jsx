@@ -19,7 +19,9 @@ const WatchLaterProvider = ({ children }) => {
   const fetchWatchLater = () => {
     dispatch({ type: ACTION_TYPE_LOADING });
     axios
-      .get("/api/user/watchlater")
+      .get("/api/user/watchlater", {
+        headers: { authorization: token },
+      })
       .then((res) => {
         dispatch({
           type: ACTION_TYPE_SUCCESS,

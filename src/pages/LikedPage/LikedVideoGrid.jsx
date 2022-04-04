@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { useLikedVideos } from "../../context/LikedVideosContext";
-import { useNav } from "../../context/NavContext";
 import LikedVideoCard from "./LikedVideoCard";
 
 const LikedVideoGrid = () => {
-  const { setActiveItem } = useNav();
   const { likedVideos } = useLikedVideos();
-  useEffect(() => {
-    setActiveItem("Liked Videos");
-  });
   return (
     <>
       {likedVideos.loading && <Loader />}

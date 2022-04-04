@@ -13,6 +13,7 @@ import { PlaylistProvider } from "./context/PlaylistsContext";
 import { PlaylistModalProvider } from "./context/PlaylistModalContext";
 import { LikedVideosProvider } from "./context/LikedVideosContext";
 import { CategoryProvider } from "./context/CategoryContext";
+import { HistoryProvider } from "./context/HistoryContext";
 
 // Call make Server
 makeServer();
@@ -24,17 +25,19 @@ ReactDOM.render(
         <NavProvider>
           <CategoryProvider>
             <AuthProvider>
-              <PlaylistModalProvider>
-                <VideosProvider>
-                  <WatchLaterProvider>
-                    <PlaylistProvider>
-                      <LikedVideosProvider>
-                        <App />
-                      </LikedVideosProvider>
-                    </PlaylistProvider>
-                  </WatchLaterProvider>
-                </VideosProvider>
-              </PlaylistModalProvider>
+              <HistoryProvider>
+                <PlaylistModalProvider>
+                  <VideosProvider>
+                    <WatchLaterProvider>
+                      <PlaylistProvider>
+                        <LikedVideosProvider>
+                          <App />
+                        </LikedVideosProvider>
+                      </PlaylistProvider>
+                    </WatchLaterProvider>
+                  </VideosProvider>
+                </PlaylistModalProvider>
+              </HistoryProvider>
             </AuthProvider>
           </CategoryProvider>
         </NavProvider>

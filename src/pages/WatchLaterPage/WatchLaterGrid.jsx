@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
-import { useNav } from "../../context/NavContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import WatchLaterVideoCard from "./WatchLaterVideoCard";
 
 const WatchLaterGrid = () => {
   const { watchLater } = useWatchLater();
-  const { setActiveItem } = useNav();
-  useEffect(() => {
-    setActiveItem("Watch Later");
-  });
+
   return (
     <>
       {watchLater.loading && <Loader />}
