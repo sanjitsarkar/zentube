@@ -1,17 +1,17 @@
 import React from "react";
 import { useVideos } from "../../context/VideosContext";
 
-const Tag = ({ name, active, setActive }) => {
+const Category = ({ name, active, setActive }) => {
   const { filterVideos } = useVideos();
 
   return (
     <button
       className={`btn font-bold ${
         active ? "btn-primary" : "btn-outline-primary"
-      } tag`}
+      } category-button`}
       onClick={() => {
         setActive(name);
-        filterVideos({ tag: name, type: "video" });
+        filterVideos({ category: name, type: "video" });
       }}
     >
       {name}
@@ -19,4 +19,4 @@ const Tag = ({ name, active, setActive }) => {
   );
 };
 
-export default Tag;
+export default Category;

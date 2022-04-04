@@ -8,7 +8,7 @@ import VideoInfo from "./VideoInfo";
 import "./SingleVideoPage.css";
 const SingleVideoPage = () => {
   const location = useLocation();
-  const { fetchVideoInfo, video } = useVideos();
+  const { fetchVideoInfo, videoInfo } = useVideos();
   useEffect(async () => {
     let pathName = location.pathname.split("/");
     let videoId = pathName[pathName.length - 1];
@@ -18,19 +18,18 @@ const SingleVideoPage = () => {
   return (
     <Layout>
       <div className="row flex-wrap ">
-        {video.loading && <Loader />}
-
-        {!video.loading && video.data.length !== 0 && (
+        {videoInfo.loading && <Loader />}
+        {!videoInfo.loading && videoInfo.data.length !== 0 && (
           <>
-            <VideoInfo video={video.data} />
+            <VideoInfo video={videoInfo.data} />
             <RelatedVideos
-              videoId={video.data._id}
-              category={video.data.category}
+              videoId={videoInfo.data._id}
+              category={videoInfo.data.category}
             />
           </>
         )}
 
-        {!video.loading && video.data.length === 0 && (
+        {!videoInfo.loading && videoInfo.data.length === 0 && (
           <div className="w-full h-4-6 grid place-content-center place-items-center gap-1">
             <h2>Video is not found</h2>
             <Link to="/" className="btn btn-primary w-fit">

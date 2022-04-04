@@ -6,7 +6,11 @@ import {
 } from "../../assets/icons";
 import { useLikedVideos } from "../../context/LikedVideosContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
-import { convertViewCount, timeSince } from "../../utils";
+import {
+  convertTimestampToDate,
+  convertViewCount,
+  timeSince,
+} from "../../utils";
 
 const VideoInfo = ({ video }) => {
   const { likedVideos, addToLikedVideos, removeFromLikedVideos } =
@@ -53,11 +57,9 @@ const VideoInfo = ({ video }) => {
 
           <div className="row items-center w-full mt-05 justify-between">
             <div className="row item-center  gap-1 text-lg">
+              <h5 className="o-70 font-semibold">{video.viewCount} views</h5>
               <h5 className="o-70 font-semibold">
-                {convertViewCount(video.viewCount)} views
-              </h5>
-              <h5 className="o-70 font-semibold">
-                {timeSince(video.publishedAt)} ago
+                {convertTimestampToDate(video.publishedAt)}
               </h5>
             </div>
             <div className="row item-center  ">

@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useNav } from "../../context/NavContext";
-import TagList from "./TagList";
+import CategoryList from "./CategoryList";
 import VideoGrid from "./VideoGrid";
 
 const HomePage = () => {
   const { setActiveItem } = useNav();
-  useEffect(async () => {
+  useEffect(() => {
     setActiveItem("Home");
   }, []);
   return (
     <Layout>
-      <TagList />
+      <CategoryList />
       <VideoGrid />
     </Layout>
   );

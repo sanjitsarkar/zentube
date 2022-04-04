@@ -7,11 +7,11 @@ const RelatedVideos = ({ category, videoId }) => {
   const { filterVideos, relatedVideos } = useVideos();
   useEffect(async () => {
     await filterVideos({ category, type: "related" });
-  }, [category]);
+  }, []);
   return (
     <div className="mt-3">
       <h3>Related Videos</h3>
-      <button className={`btn font-bold  btn-primary tag mt-2`}>
+      <button className={`btn font-bold  btn-primary Category mt-2`}>
         {category}
       </button>
 
