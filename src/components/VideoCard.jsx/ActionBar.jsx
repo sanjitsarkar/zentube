@@ -5,20 +5,12 @@ import {
   WatchLaterIcon,
 } from "../../assets/icons";
 import { useAuth } from "../../context/AuthContext";
-import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
-  const {
-    showPlaylistModal,
-    setShowPlaylistModal,
-    togglePlaylistModal,
-    videoId,
-    setVideoId,
-  } = usePlaylistModal();
   const { setToast } = useToast();
   const { isLoggedIn } = useAuth();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
@@ -48,16 +40,12 @@ const ActionBar = ({ video, show }) => {
         Icon={AddToPlaylistIcon}
         title="Save to playlist"
         onClick={() => {
-          if (isLoggedIn) {
-            setVideoId(video._id);
-            togglePlaylistModal();
-          } else {
+          if (!isLoggedIn)
             setToast({
               show: true,
               content: "Please login to add video to Playlist",
               type: "warning",
             });
-          }
         }}
       />
     </div>

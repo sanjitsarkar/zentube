@@ -9,8 +9,6 @@ import { NavProvider } from "./context/NavContext";
 import { WatchLaterProvider } from "./context/WatchLaterContext";
 import { ToastProvider } from "./context/ToastContext";
 import { AuthProvider } from "./context/AuthContext";
-import { PlaylistProvider } from "./context/PlaylistsContext";
-import { PlaylistModalProvider } from "./context/PlaylistModalContext";
 import { LikedVideosProvider } from "./context/LikedVideosContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { HistoryProvider } from "./context/HistoryContext";
@@ -23,23 +21,19 @@ ReactDOM.render(
     <BrowserRouter>
       <ToastProvider>
         <NavProvider>
-          <CategoryProvider>
-            <AuthProvider>
-              <HistoryProvider>
-                <PlaylistModalProvider>
-                  <VideosProvider>
-                    <WatchLaterProvider>
-                      <PlaylistProvider>
-                        <LikedVideosProvider>
-                          <App />
-                        </LikedVideosProvider>
-                      </PlaylistProvider>
-                    </WatchLaterProvider>
-                  </VideosProvider>
-                </PlaylistModalProvider>
-              </HistoryProvider>
-            </AuthProvider>
-          </CategoryProvider>
+          <AuthProvider>
+            <HistoryProvider>
+              <CategoryProvider>
+                <VideosProvider>
+                  <WatchLaterProvider>
+                    <LikedVideosProvider>
+                      <App />
+                    </LikedVideosProvider>
+                  </WatchLaterProvider>
+                </VideosProvider>
+              </CategoryProvider>
+            </HistoryProvider>
+          </AuthProvider>
         </NavProvider>
       </ToastProvider>
     </BrowserRouter>
