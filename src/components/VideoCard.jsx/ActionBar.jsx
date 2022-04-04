@@ -12,13 +12,7 @@ import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
-  const {
-    showPlaylistModal,
-    setShowPlaylistModal,
-    togglePlaylistModal,
-    videoId,
-    setVideoId,
-  } = usePlaylistModal();
+  const { togglePlaylistModal, setVideoId } = usePlaylistModal();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const { setToast } = useToast();
   const { isLoggedIn } = useAuth();
