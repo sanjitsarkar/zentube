@@ -11,7 +11,6 @@ import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
-  const [isInWatchLater, setIsInWatchlater] = useState(false);
   const { setToast } = useToast();
   const { isLoggedIn } = useAuth();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
@@ -41,7 +40,7 @@ const ActionBar = ({ video, show }) => {
         Icon={AddToPlaylistIcon}
         title="Save to playlist"
         onClick={() => {
-          if (isLoggedIn)
+          if (!isLoggedIn)
             setToast({
               show: true,
               content: "Please login to add video to Playlist",
