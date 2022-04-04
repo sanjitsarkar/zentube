@@ -40,14 +40,13 @@ const ActionBar = ({ video, show }) => {
         Icon={AddToPlaylistIcon}
         title="Save to playlist"
         onClick={() => {
-          if (isLoggedIn)
+          if (!isLoggedIn)
             setToast({
               show: true,
               content: "Please login to add video to Playlist",
               type: "warning",
             });
-          }
-        }
+        }}
       />
     </div>
   );
