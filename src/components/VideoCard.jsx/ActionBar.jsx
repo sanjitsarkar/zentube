@@ -19,9 +19,9 @@ const ActionBar = ({ video, show }) => {
     videoId,
     setVideoId,
   } = usePlaylistModal();
-  const [isInWatchLater, setIsInWatchlater] = useState(false);
   const { setToast } = useToast();
   const { isLoggedIn } = useAuth();
+  const [isInWatchLater, setIsInWatchlater] = useState(false);
   useEffect(() => {
     watchLater.data.forEach((element) => {
       if (element._id == video._id) setIsInWatchlater(() => true);
