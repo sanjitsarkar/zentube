@@ -6,7 +6,7 @@ const PlaylistsPage = () => {
   const { setActiveItem } = useNav();
   useEffect(() => {
     setActiveItem("Playlist");
-  });
+  }, []);
   return (
     <Layout>
       <h1>Playlists Page</h1>

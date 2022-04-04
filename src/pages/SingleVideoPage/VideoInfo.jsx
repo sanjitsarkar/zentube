@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddToPlaylistIcon,
   LikedIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
+import { useLikedVideos } from "../../context/LikedVideosContext";
+import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertViewCount, timeSince } from "../../utils";
 
 const VideoInfo = ({ video }) => {
+  const { likedVideos, addToLikedVideos, removeFromLikedVideos } =
+    useLikedVideos();
+  const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
+  const [isInWatchLater, setIsInWatchlater] = useState(false);
+  const [isInLikedVideos, setIsInLikedVideos] = useState(false);
+
+  useEffect(() => {
+    if (
+      watchLater.data.findIndex((element) => element._id == video._id) !== -1
+    ) {
+      setIsInWatchlater(() => true);
+    } else {
+      setIsInWatchlater(() => false);
+    }
+  }, [watchLater]);
+
+  useEffect(() => {
+    if (
+      likedVideos.data.findIndex((element) => element._id == video._id) !== -1
+    ) {
+      setIsInLikedVideos(() => true);
+    } else {
+      setIsInLikedVideos(() => false);
+    }
+  }, [likedVideos]);
+
   const videoId = video.videoURL.split("=")[1];
+
   return (
     <div className="w-screen">
       <iframe
@@ -32,12 +61,34 @@ const VideoInfo = ({ video }) => {
               </h5>
             </div>
             <div className="row item-center  ">
-              <button className="text-lg row items-center gap-05">
-                <LikedIcon />
+              <button
+                className="text-lg row items-center gap-05"
+                onClick={() => {
+                  isInLikedVideos
+                    ? removeFromLikedVideos(video._id)
+                    : addToLikedVideos(video);
+                }}
+              >
+                <LikedIcon
+                  className={`${
+                    isInLikedVideos ? "text-tertiary" : "text-light"
+                  }`}
+                />
                 <span>Like</span>
               </button>
-              <button className="text-lg row items-center gap-05">
-                <WatchLaterIcon />
+              <button
+                className="text-lg row items-center gap-05"
+                onClick={() => {
+                  isInWatchLater
+                    ? removeFromWatchLater(video._id)
+                    : addToWatchLater(video);
+                }}
+              >
+                <WatchLaterIcon
+                  className={`${
+                    isInWatchLater ? "text-primary" : "text-light"
+                  }`}
+                />
                 <span>Watch Later</span>
               </button>
               <button className="text-lg row items-center gap-05">

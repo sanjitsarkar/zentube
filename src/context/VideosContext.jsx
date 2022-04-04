@@ -16,6 +16,10 @@ const VideosContext = createContext();
 
 const VideosProvider = ({ children }) => {
   const [videos, dispatchVideos] = useReducer(reducer, initialState);
+  const [relatedVideos, dispatchRelatedVideos] = useReducer(
+    reducer,
+    initialState
+  );
   const [video, dispatchVideo] = useReducer(reducer, initialState);
 
   const getVideos = async () => {
@@ -27,7 +31,11 @@ const VideosProvider = ({ children }) => {
     }
   };
   const filterVideos = (filters) => {
-    dispatchVideos({ type: ACTION_TYPE_LOADING });
+    if (filters.type === "related") {
+      dispatchRelatedVideos({ type: ACTION_TYPE_LOADING });
+    } else if (filters.type === "video") {
+      dispatchVideos({ type: ACTION_TYPE_LOADING });
+    }
 
     getVideos()
       .then((res) => {
@@ -46,17 +54,27 @@ const VideosProvider = ({ children }) => {
           }
           return false;
         });
-        dispatchVideos({
-          type: ACTION_TYPE_SUCCESS,
-          payload: videos,
-        });
+
+        if (filters.type === "related") {
+          dispatchRelatedVideos({ type: ACTION_TYPE_SUCCESS, payload: videos });
+        } else if (filters.type === "video") {
+          dispatchVideos({ type: ACTION_TYPE_SUCCESS, payload: videos });
+        }
       })
-      .catch((err) =>
-        dispatchVideos({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        })
-      );
+      .catch((err) => {
+        console.log(err);
+        if (filters.type === "related") {
+          dispatchRelatedVideos({
+            type: ACTION_TYPE_FAILURE,
+            payload: err.message,
+          });
+        } else if (filters.type === "video") {
+          dispatchVideos({
+            type: ACTION_TYPE_FAILURE,
+            payload: err.message,
+          });
+        }
+      });
   };
   const fetchVideoInfo = (videoId) => {
     dispatchVideo({ type: ACTION_TYPE_LOADING });
@@ -104,6 +122,7 @@ const VideosProvider = ({ children }) => {
         fetchVideos,
         filterVideos,
         video,
+        relatedVideos,
         setVideo: dispatchVideo,
         fetchVideoInfo,
       }}

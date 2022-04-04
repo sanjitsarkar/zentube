@@ -12,6 +12,7 @@ import { ToastProvider } from "./context/ToastContext";
 import { AuthProvider } from "./context/AuthContext";
 import { PlaylistProvider } from "./context/PlaylistsContext";
 import { PlaylistModalProvider } from "./context/PlaylistModalContext";
+import { LikedVideosProvider } from "./context/LikedVideosContext";
 
 // Call make Server
 makeServer();
@@ -27,7 +28,9 @@ ReactDOM.render(
                 <VideosProvider>
                   <WatchLaterProvider>
                     <PlaylistProvider>
-                      <App />
+                      <LikedVideosProvider>
+                        <App />
+                      </LikedVideosProvider>
                     </PlaylistProvider>
                   </WatchLaterProvider>
                 </VideosProvider>

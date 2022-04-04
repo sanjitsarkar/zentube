@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useWatchLater } from "../../context/WatchLaterContext";
+import { useLikedVideos } from "../../context/LikedVideosContext";
 import { convertViewCount, timeSince } from "../../utils";
 
-const WatchLaterVideoCard = ({ video }) => {
-  const { removeFromWatchLater } = useWatchLater();
+const LikedVideoCard = ({ video }) => {
+  const { removeFromLikedVideos } = useLikedVideos();
   return (
     <div className="card card-md card-dark" id="video-card">
       <Link to={`/watch/v/${video._id}`}>
@@ -24,9 +24,9 @@ const WatchLaterVideoCard = ({ video }) => {
 
             <button
               className=""
-              onClick={() => removeFromWatchLater(video._id)}
+              onClick={() => removeFromLikedVideos(video._id)}
             >
-              <i className="fa fa-trash fa-lg text-tertiary fa-xl"></i>
+              <i className="fa fa-heart fa-lg text-tertiary fa-2xl"></i>
             </button>
           </div>
           <div className="row items-center w-full mt-05 justify-between">
@@ -56,4 +56,4 @@ const WatchLaterVideoCard = ({ video }) => {
   );
 };
 
-export default WatchLaterVideoCard;
+export default LikedVideoCard;

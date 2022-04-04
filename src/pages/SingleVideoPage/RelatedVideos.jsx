@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import Loader from "../../components/Loader";
-import NotAvailable from "../../components/NotAvailable";
 import VideoCard from "../../components/VideoCard.jsx";
 import { useVideos } from "../../context/VideosContext";
 
 const RelatedVideos = ({ category, videoId }) => {
-  const { filterVideos, videos } = useVideos();
+  const { filterVideos, relatedVideos } = useVideos();
   useEffect(async () => {
-    await filterVideos({ category });
+    await filterVideos({ category, type: "related" });
   }, [category]);
   return (
     <div className="mt-3">
@@ -16,18 +15,15 @@ const RelatedVideos = ({ category, videoId }) => {
         {category}
       </button>
 
-      {videos.loading && <Loader />}
+      {relatedVideos.loading && <Loader />}
       <div className=" mt-3 gap-05 video-grid  ">
-        {!videos.loading &&
-          videos.data.length > 0 &&
-          videos.data.map((video, i) => {
-            // if (video._id !== videoId)
-            return <VideoCard video={video} key={video._id} />;
+        {!relatedVideos.loading &&
+          relatedVideos.data.length > 0 &&
+          relatedVideos.data.map((video, i) => {
+            if (video._id !== videoId)
+              return <VideoCard video={video} key={video._id} />;
           })}
       </div>
-      {!videos.loading && videos.data.length == 0 && (
-        <NotAvailable title="Videos not available" />
-      )}
     </div>
   );
 };
