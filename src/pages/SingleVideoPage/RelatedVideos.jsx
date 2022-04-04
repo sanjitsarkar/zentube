@@ -21,8 +21,8 @@ const RelatedVideos = ({ category, videoId }) => {
         {!videos.loading &&
           videos.data.length > 0 &&
           videos.data.map((video, i) => {
-            // if (video._id !== videoId)
-            return <VideoCard video={video} key={video._id} />;
+            if (video._id !== videoId)
+              return <VideoCard video={video} key={video._id} />;
           })}
       </div>
       {!videos.loading && videos.data.length == 0 && (
