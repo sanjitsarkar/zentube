@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TrashIcon } from "../../assets/icons";
 import Loader from "../../components/Loader";
 import { useHistory } from "../../context/HistoryContext";
 import HistoryVideoCard from "./HistoryVideoCard";
