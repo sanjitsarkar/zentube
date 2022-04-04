@@ -77,7 +77,6 @@ const WatchLaterProvider = ({ children }) => {
           });
         })
         .catch((err) => {
-          console.log(err.message);
           setToast({
             show: true,
             content: `Error adding to Watch Later`,
@@ -92,7 +91,6 @@ const WatchLaterProvider = ({ children }) => {
   };
   const removeFromWatchLater = (id) => {
     dispatch({ type: ACTION_TYPE_LOADING });
-
     if (!isLoggedIn) {
       setToast({
         show: true,
