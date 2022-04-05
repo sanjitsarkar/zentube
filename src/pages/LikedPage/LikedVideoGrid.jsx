@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import NotAvailable from "../../components/NotAvailable";
 import { useLikedVideos } from "../../context/LikedVideosContext";
 import LikedVideoCard from "./LikedVideoCard";
 
@@ -18,7 +19,8 @@ const LikedVideoGrid = () => {
       </div>
       {!likedVideos.loading && likedVideos.data.length == 0 && (
         <div className="w-full h-4-6 grid place-content-center place-items-center gap-1">
-          <h2>Liked video is empty</h2>
+          <NotAvailable title="Liked video is empty" />
+
           <Link to="/" className="btn btn-primary w-fit">
             View videos
           </Link>

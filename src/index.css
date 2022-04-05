@@ -112,4 +112,23 @@ textarea {
   height: 30vh;
   width: 40vw;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+#input-dark {
+  color: var(--light-color);
+}
+
+.playlist-items {
+  max-height: 25vh;
+}
+
+.playlist-title {
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /*# sourceMappingURL=index.css.map */

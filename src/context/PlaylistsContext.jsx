@@ -1,6 +1,11 @@
-import { waitForDomChange } from "@testing-library/react";
 import axios from "axios";
-import React, { useEffect, createContext, useContext, useReducer } from "react";
+import React, {
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
@@ -10,12 +15,12 @@ import {
 import { useAuth } from "./AuthContext";
 import { useToast } from "./ToastContext";
 const PlaylistContext = createContext();
-
 const PlaylistProvider = ({ children }) => {
   const [playlistVideos, dispatchPlaylistVideos] = useReducer(
     reducer,
     initialState
   );
+  const [playlistsInfo, setPlaylistsInfo] = useState(new Map());
   const [playlists, dispatchPlaylists] = useReducer(reducer, initialState);
   const { token, isLoggedIn } = useAuth();
 
@@ -81,6 +86,19 @@ const PlaylistProvider = ({ children }) => {
 
   const addPlaylist = (title, description = "") => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
+
+    if (
+      playlists.data.findIndex(
+        (_playlist) => playlistsInfo.get(_playlist._id).title === title
+      ) !== -1
+    ) {
+      setToast({
+        show: true,
+        content: "Playlist with this name already exists",
+        type: "error",
+      });
+      return;
+    }
     axios
       .post(
         "/api/user/playlists",
@@ -98,6 +116,12 @@ const PlaylistProvider = ({ children }) => {
           content: "Playlist added successfully",
           type: "info",
         });
+        let map = playlistsInfo;
+        map.set(res.data.playlists[res.data.playlists.length - 1]._id, {
+          title,
+          description,
+        });
+        setPlaylistsInfo(() => map);
         dispatchPlaylists({
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.playlists,
@@ -127,6 +151,9 @@ const PlaylistProvider = ({ children }) => {
           content: "Playlist removed successfully",
           type: "info",
         });
+        const map = playlistsInfo;
+        map.delete(playlistId);
+        setPlaylistsInfo(map);
         dispatchPlaylists({
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.playlists,
@@ -173,7 +200,7 @@ const PlaylistProvider = ({ children }) => {
       .then((res) => {
         setToast({
           show: true,
-          content: `Video added to Playlist`,
+          content: `Video added to Playlist ${playlistsInfo.get(id).title}`,
           type: "info",
         });
         dispatchPlaylistVideos({
@@ -221,7 +248,7 @@ const PlaylistProvider = ({ children }) => {
       .then((res) => {
         setToast({
           show: true,
-          content: `Video removed from Playlist`,
+          content: `Video removed from Playlist ${playlistsInfo.get(id).title}`,
           type: "error",
         });
         dispatchPlaylistVideos({
@@ -233,7 +260,9 @@ const PlaylistProvider = ({ children }) => {
       .catch((err) => {
         setToast({
           show: true,
-          content: `Error removed to Playlist`,
+          content: `Error removing from Playlist ${
+            playlistsInfo.get(playlistId).title
+          }`,
           type: "error",
         });
         dispatchPlaylistVideos({
@@ -260,6 +289,7 @@ const PlaylistProvider = ({ children }) => {
         fetchPlaylistVideos,
         removeFromPlaylist,
         fetchPlaylist,
+        playlistsInfo,
       }}
     >
       {children}
