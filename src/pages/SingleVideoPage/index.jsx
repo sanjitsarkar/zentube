@@ -8,7 +8,7 @@ import VideoInfo from "./VideoInfo";
 import "./SingleVideoPage.css";
 const SingleVideoPage = () => {
   const location = useLocation();
-  const { fetchVideoInfo } = useVideos();
+  const { fetchVideoInfo, videoInfo } = useVideos();
   useEffect(() => {
     let pathName = location.pathname.split("/");
     let videoId = pathName[pathName.length - 1];
