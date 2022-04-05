@@ -12,9 +12,7 @@ const RelatedVideos = ({ category, videoId }) => {
   return (
     <div className="mt-3">
       <h3>Related Videos</h3>
-      <button className={`btn font-bold  btn-primary tag mt-2`}>
-        {category}
-      </button>
+      <div className={`btn font-bold  btn-primary tag mt-2`}>{category}</div>
 
       {videos.loading && <Loader />}
       <div className=" mt-3 gap-05 video-grid  ">
