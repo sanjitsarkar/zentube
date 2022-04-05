@@ -1,3 +1,4 @@
+import { waitForDomChange } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, createContext, useContext, useReducer } from "react";
 import { initialState, reducer } from "../reducers/reducer";
@@ -145,7 +146,7 @@ const PlaylistProvider = ({ children }) => {
   };
   const addToPlaylist = (video, id) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
-
+    console.log(video, id);
     if (!isLoggedIn) {
       setToast({
         show: true,
@@ -179,11 +180,12 @@ const PlaylistProvider = ({ children }) => {
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.playlist,
         });
+        fetchPlaylist();
       })
       .catch((err) => {
         setToast({
           show: true,
-          content: `Error adding to Playlist`,
+          content: `Error adding to Playlist ${err.message}`,
           type: "info",
         });
         dispatchPlaylistVideos({
@@ -226,6 +228,7 @@ const PlaylistProvider = ({ children }) => {
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.playlist,
         });
+        fetchPlaylist();
       })
       .catch((err) => {
         setToast({

@@ -5,28 +5,18 @@ import { usePlaylist } from "../../context/PlaylistsContext";
 
 const AddToPlaylistModal = () => {
   const {
-    getPlaylist,
+    fetchPlaylist,
+    removeFromPlaylist,
     playlists,
-    playlistVideos,
     addPlaylist,
     addToPlaylist,
-    fetchPlaylist,
   } = usePlaylist();
   const [checkedList, setCheckedList] = useState([]);
   const [showPlaylistInput, setShowPlaylistInput] = useState(false);
   const [playlistTitle, setPlaylistTitle] = useState("");
   const [playlistId, setPlaylistId] = useState("");
-  const { showPlaylistModal, togglePlaylistModal, videoId } =
-    usePlaylistModal();
-  useEffect(() => {
-    playlists.data.map((playlist, i) => {
-      setPlaylistId(() => playlist._id);
-    });
-  }, [playlists]);
+  const { showPlaylistModal, togglePlaylistModal, video } = usePlaylistModal();
 
-  useEffect(async () => {
-    await getPlaylist(playlistId);
-  }, [playlistId]);
   return (
     <div
       id="playlist-modal"
@@ -41,27 +31,43 @@ const AddToPlaylistModal = () => {
             Save to
           </div>
           <hr />
-          <ul>
-            <li className="row items-center justify-between p-1 pl-2 pr-2">
-              <label className="checkbox-container">
-                Watch Later
-                <input
-                  defaultValue="Watch Later"
-                  type="checkbox"
-                  onChange={(e) => {
-                    setCheckedList((_checkedList) => [
-                      ...checkedList,
-                      e.target.value,
-                    ]);
 
-                    addToPlaylist("1", videoId);
-                    togglePlaylistModal();
-                  }}
-                />
-                <span className="checkmark"></span>
-              </label>
-              <WatchLaterIcon className="text-primary" />
-            </li>
+          <ul>
+            {playlists.data.map((playlist) => (
+              <li
+                className="row items-center justify-between p-1 pl-2 pr-2"
+                key={playlist._id}
+              >
+                <label className="checkbox-container">
+                  {playlist._id}
+
+                  <input
+                    defaultValue="Watch Later"
+                    type="checkbox"
+                    checked={
+                      playlist.videos.findIndex(
+                        (_video) => _video._id === video._id
+                      ) === -1
+                        ? false
+                        : true
+                    }
+                    onChange={(e) => {
+                      setCheckedList((_checkedList) => [
+                        ...checkedList,
+                        e.target.value,
+                      ]);
+                      console.log("checked", e.target.checked);
+                      if (e.target.checked == false) {
+                        removeFromPlaylist(video._id, playlist._id);
+                      } else {
+                        addToPlaylist(video, playlist._id);
+                      }
+                    }}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </li>
+            ))}
           </ul>
           <hr />
           <div className="p-1 pl-2 pr-2">
@@ -71,6 +77,7 @@ const AddToPlaylistModal = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   addPlaylist(playlistTitle);
+                  setPlaylistTitle("");
                 }}
               >
                 <input
