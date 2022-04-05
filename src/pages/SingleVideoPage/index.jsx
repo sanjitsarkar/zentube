@@ -9,10 +9,10 @@ import "./SingleVideoPage.css";
 const SingleVideoPage = () => {
   const location = useLocation();
   const { fetchVideoInfo, videoInfo } = useVideos();
-  useEffect(async () => {
+  useEffect(() => {
     let pathName = location.pathname.split("/");
     let videoId = pathName[pathName.length - 1];
-    await fetchVideoInfo(videoId);
+    fetchVideoInfo(videoId);
   }, [location]);
 
   return (
