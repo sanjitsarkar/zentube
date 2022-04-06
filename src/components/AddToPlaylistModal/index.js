@@ -15,7 +15,13 @@ const AddToPlaylistModal = () => {
   const [showPlaylistInput, setShowPlaylistInput] = useState(false);
   const [playlistTitle, setPlaylistTitle] = useState("");
   const [playlistDesc, setPlaylistDesc] = useState("");
-  const { showPlaylistModal, togglePlaylistModal, video } = usePlaylistModal();
+  const {
+    showPlaylistModal,
+    togglePlaylistModal,
+    video,
+    showPlaylistList,
+    setShowPlaylistList,
+  } = usePlaylistModal();
 
   return (
     <div
@@ -34,7 +40,7 @@ const AddToPlaylistModal = () => {
         </span>
         <div className="text-dark">
           <div htmlFor="" className="p-1 pl-2 pr-2">
-            Save to
+            {!showPlaylistList ? "Add Playlist" : "Save to"}
           </div>
           <hr />
 
@@ -43,31 +49,36 @@ const AddToPlaylistModal = () => {
               {playlists.data.map((playlist) => (
                 <div key={playlist._id}>
                   <li className="row items-center justify-between p-1 pl-2 pr-2 gap-1">
-                    <label className="checkbox-container flex flex-wrap">
+                    {showPlaylistList ? (
+                      <label className="checkbox-container flex flex-wrap">
+                        <div className="playlist-title">
+                          {playlistsInfo.get(playlist._id).title}
+                        </div>
+
+                        <input
+                          type="checkbox"
+                          checked={
+                            playlist.videos.findIndex(
+                              (_video) => _video._id === video._id
+                            ) === -1
+                              ? false
+                              : true
+                          }
+                          onChange={(e) => {
+                            if (e.target.checked == false) {
+                              removeFromPlaylist(video._id, playlist._id);
+                            } else {
+                              addToPlaylist(video, playlist._id);
+                            }
+                          }}
+                        />
+                        <span className="checkmark"></span>
+                      </label>
+                    ) : (
                       <div className="playlist-title">
-                        {" "}
                         {playlistsInfo.get(playlist._id).title}
                       </div>
-
-                      <input
-                        type="checkbox"
-                        checked={
-                          playlist.videos.findIndex(
-                            (_video) => _video._id === video._id
-                          ) === -1
-                            ? false
-                            : true
-                        }
-                        onChange={(e) => {
-                          if (e.target.checked == false) {
-                            removeFromPlaylist(video._id, playlist._id);
-                          } else {
-                            addToPlaylist(video, playlist._id);
-                          }
-                        }}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+                    )}
                     <PlaySpeedIcon
                       className={"text-success"}
                       width={"1.5rem"}
@@ -86,6 +97,9 @@ const AddToPlaylistModal = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   addPlaylist(playlistTitle, playlistDesc);
+                  if (!showPlaylistList) {
+                    togglePlaylistModal();
+                  }
                   setShowPlaylistInput(false);
                   setPlaylistTitle("");
                   setPlaylistDesc("");

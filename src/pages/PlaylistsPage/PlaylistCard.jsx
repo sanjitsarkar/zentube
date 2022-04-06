@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PlaylistPlayIcon } from "../../assets/icons";
+import { usePlaylist } from "../../context/PlaylistsContext";
 
 const PlaylistCard = ({ playlist, playlistsInfo }) => {
+  const { removePlaylist } = usePlaylist();
   return (
     <div className="playlist-card  bg-black-6 br-sm ">
       <Link to={`/playlists/${playlist._id}`}>
@@ -33,7 +35,10 @@ const PlaylistCard = ({ playlist, playlistsInfo }) => {
           </h3>
           <span>View Playlist</span>
         </div>
-        <div className="button">
+        <div
+          className=" cursor-pointer button"
+          onClick={() => removePlaylist(playlist._id)}
+        >
           <i className="fa fa-trash fa-lg text-tertiary"></i>
         </div>
       </div>

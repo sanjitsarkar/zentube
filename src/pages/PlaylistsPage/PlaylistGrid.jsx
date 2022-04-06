@@ -9,7 +9,7 @@ import PlaylistCard from "./PlaylistCard";
 
 const PlaylistGrid = () => {
   const { playlists, playlistsInfo } = usePlaylist();
-  const { togglePlaylistModal } = usePlaylistModal();
+  const { togglePlaylistModal, setShowPlaylistList } = usePlaylistModal();
 
   return (
     <>
@@ -18,6 +18,7 @@ const PlaylistGrid = () => {
           className="row  gap-05  bg-secondary items-center cursor-pointer p-1 pl-2 pr-2 br-sm"
           onClick={() => {
             togglePlaylistModal();
+            setShowPlaylistList(false);
           }}
         >
           <AddToPlaylistIcon className={"w-6"} />
@@ -26,7 +27,7 @@ const PlaylistGrid = () => {
         </div>
       </div>
       {playlists.loading && <Loader />}
-      <div className="grid mt-3 gap-2 video-grid  w-full">
+      <div className="grid mt-3  playlist-grid w-full">
         {!playlists.loading &&
           playlists.data.length > 0 &&
           playlists.data.map((playlist, i) => (
