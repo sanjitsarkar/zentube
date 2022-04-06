@@ -5,13 +5,17 @@ const Toast = ({ content, type, show = false, duration = 2000 }) => {
   const { toggleToast } = useToast();
   const [hide, setHide] = useState(true);
   useEffect(() => {
+    let timer;
     if (show) {
       setHide(false);
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setHide(true);
         toggleToast();
       }, duration);
     }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [show]);
   return (
     <div

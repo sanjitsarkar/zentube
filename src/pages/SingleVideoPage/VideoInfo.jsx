@@ -7,6 +7,7 @@ import {
 } from "../../assets/icons";
 import { useHistory } from "../../context/HistoryContext";
 import { useLikedVideos } from "../../context/LikedVideosContext";
+import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertTimestampToDate } from "../../utils";
 
@@ -17,6 +18,8 @@ const VideoInfo = ({ video }) => {
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const [isInLikedVideos, setIsInLikedVideos] = useState(false);
   const { addToHistory } = useHistory();
+  const { togglePlaylistModal, setVideo, setShowPlaylistList } =
+    usePlaylistModal();
 
   useEffect(() => {
     if (
@@ -94,7 +97,14 @@ const VideoInfo = ({ video }) => {
                 />
                 <span>Watch Later</span>
               </button>
-              <button className="text-lg row items-center gap-05">
+              <button
+                className="text-lg row items-center gap-05"
+                onClick={() => {
+                  setShowPlaylistList(true);
+                  setVideo(video);
+                  togglePlaylistModal();
+                }}
+              >
                 <AddToPlaylistIcon />
                 <span>Add to playlist</span>
               </button>

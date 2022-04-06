@@ -4,6 +4,7 @@ const PlaylistModalContext = createContext();
 
 const PlaylistModalProvider = ({ children }) => {
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+  const [showPlaylistList, setShowPlaylistList] = useState(true);
   const [video, setVideo] = useState({});
   const togglePlaylistModal = () => {
     setShowPlaylistModal(!showPlaylistModal);
@@ -12,6 +13,8 @@ const PlaylistModalProvider = ({ children }) => {
   return (
     <PlaylistModalContext.Provider
       value={{
+        showPlaylistList,
+        setShowPlaylistList,
         showPlaylistModal,
         setShowPlaylistModal,
         togglePlaylistModal,

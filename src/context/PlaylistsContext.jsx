@@ -97,6 +97,10 @@ const PlaylistProvider = ({ children }) => {
         content: "Playlist with this name already exists",
         type: "error",
       });
+      dispatchPlaylists({
+        type: ACTION_TYPE_FAILURE,
+        payload: "Playlist with this name already exists",
+      });
       return;
     }
     axios
@@ -142,7 +146,7 @@ const PlaylistProvider = ({ children }) => {
   const removePlaylist = (playlistId) => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
     axios
-      .remove(`/api/user/playlists/${playlistId}`, {
+      .delete(`/api/user/playlists/${playlistId}`, {
         headers: { authorization: token },
       })
       .then((res) => {
@@ -173,7 +177,6 @@ const PlaylistProvider = ({ children }) => {
   };
   const addToPlaylist = (video, id) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
-    console.log(video, id);
     if (!isLoggedIn) {
       setToast({
         show: true,
@@ -181,8 +184,8 @@ const PlaylistProvider = ({ children }) => {
         type: "warning",
       });
       dispatchPlaylistVideos({
-        type: ACTION_TYPE_SUCCESS,
-        payload: [],
+        type: ACTION_TYPE_FAILURE,
+        payload: "Please login to add video to Playlist",
       });
       return;
     }
@@ -231,8 +234,8 @@ const PlaylistProvider = ({ children }) => {
         type: "warning",
       });
       dispatchPlaylistVideos({
-        type: ACTION_TYPE_SUCCESS,
-        payload: [],
+        type: ACTION_TYPE_FAILURE,
+        payload: "Please login to add video to Playlist",
       });
       return;
     }

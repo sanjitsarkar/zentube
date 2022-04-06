@@ -131,4 +131,23 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.playlist-grid {
+  min-width: 70vw;
+  display: -ms-grid;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  -ms-grid-columns: (minmax(18rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+}
+
+.playlist-card {
+  height: 46vh;
+  width: 100%;
+}
+
+.playlist-card .card-top img {
+  height: 13rem;
+}
 /*# sourceMappingURL=index.css.map */

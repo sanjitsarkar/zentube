@@ -14,7 +14,8 @@ const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const { setToast } = useToast();
-  const { togglePlaylistModal, setVideo } = usePlaylistModal();
+  const { togglePlaylistModal, setVideo, setShowPlaylistList } =
+    usePlaylistModal();
   const { isLoggedIn } = useAuth();
   useEffect(() => {
     watchLater.data.forEach((element) => {
@@ -49,8 +50,8 @@ const ActionBar = ({ video, show }) => {
               type: "warning",
             });
           else {
-            console.log("Clicked");
             togglePlaylistModal();
+            setShowPlaylistList(true);
             setVideo(video);
           }
         }}
