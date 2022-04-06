@@ -10,7 +10,7 @@ const Tag = ({ name, active, setActive }) => {
       } tag`}
       onClick={() => {
         setActive(name);
-        filterVideos(name);
+        filterVideos({ tag: name });
       }}
     >
       {name}

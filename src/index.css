@@ -95,4 +95,11 @@ form.form {
   top: 16vh;
   left: auto;
 }
+
+.modal-content {
+  padding: 0;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
 /*# sourceMappingURL=index.css.map */

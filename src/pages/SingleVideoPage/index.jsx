@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
-
+import Loader from "../../components/Loader";
+import { useVideos } from "../../context/VideosContext";
+import RelatedVideos from "./RelatedVideos";
+import VideoInfo from "./VideoInfo";
+import "./SingleVideoPage.css";
 const SingleVideoPage = () => {
+  const location = useLocation();
+  const { fetchVideoInfo, video } = useVideos();
+  useEffect(() => {
+    let pathName = location.pathname.split("/");
+    let videoId = pathName[pathName.length - 1];
+    fetchVideoInfo(videoId);
+  }, [location]);
+
   return (
     <Layout>
-      <h1>Single Video Page</h1>
+      <div className="row flex-wrap ">
+        {video.loading && <Loader />}
+
+        {!video.loading && video.data.length !== 0 && (
+          <>
+            <VideoInfo video={video.data} />
+            <RelatedVideos
+              videoId={video.data._id}
+              category={video.data.category}
+            />
+          </>
+        )}
+
+        {!video.loading && video.data.length === 0 && (
+          <div className="w-full h-4-6 grid place-content-center place-items-center gap-1">
+            <h2>Video is not found</h2>
+            <Link to="/" className="btn btn-primary w-fit">
+              Go to Home
+            </Link>
+          </div>
+        )}
+      </div>
     </Layout>
   );
 };

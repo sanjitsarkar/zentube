@@ -4,12 +4,16 @@ import {
   TrashIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
+import { useAuth } from "../../context/AuthContext";
+import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
+  const { setToast } = useToast();
+  const { isLoggedIn } = useAuth();
   useEffect(() => {
     watchLater.data.forEach((element) => {
       if (element._id == video._id) setIsInWatchlater(() => true);
@@ -35,7 +39,14 @@ const ActionBar = ({ video, show }) => {
         show={show}
         Icon={AddToPlaylistIcon}
         title="Save to playlist"
-        onClick={() => {}}
+        onClick={() => {
+          if (!isLoggedIn)
+            setToast({
+              show: true,
+              content: "Please login to add video to Playlist",
+              type: "warning",
+            });
+        }}
       />
     </div>
   );

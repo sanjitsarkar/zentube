@@ -15,9 +15,10 @@ import {
 const VideosContext = createContext();
 
 const VideosProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [videos, dispatchVideos] = useReducer(reducer, initialState);
+  const [video, dispatchVideo] = useReducer(reducer, initialState);
 
-  const fetchVideos = async () => {
+  const getVideos = async () => {
     try {
       const res = await axios.get("/api/videos");
       return { loading: false, data: res.data.videos, error: "" };
@@ -25,58 +26,86 @@ const VideosProvider = ({ children }) => {
       return { loading: false, data: [], error: err.message };
     }
   };
-  const filterVideos = (tag) => {
-    dispatch({ type: ACTION_TYPE_LOADING });
+  const filterVideos = (filters) => {
+    dispatchVideos({ type: ACTION_TYPE_LOADING });
 
-    fetchVideos()
+    getVideos()
       .then((res) => {
         let videos = res.data.filter((video) => {
-          if (tag === "All" || (tag && video.tags.includes(tag))) {
+          if (
+            filters.tag === "All" ||
+            (filters.tag && video.tags.includes(filters.tag))
+          ) {
+            return true;
+          }
+          if (
+            filters.category === "All" ||
+            (filters.category && video.category.includes(filters.category))
+          ) {
             return true;
           }
           return false;
         });
-        dispatch({
+        dispatchVideos({
           type: ACTION_TYPE_SUCCESS,
           payload: videos,
         });
       })
       .catch((err) =>
-        dispatch({
+        dispatchVideos({
           type: ACTION_TYPE_FAILURE,
           payload: err.message,
         })
       );
   };
-
-  const searchVideos = () => {
-    dispatch({ type: ACTION_TYPE_LOADING });
+  const fetchVideoInfo = (videoId) => {
+    dispatchVideo({ type: ACTION_TYPE_LOADING });
+    axios
+      .get(`/api/video/${videoId}`)
+      .then((res) => {
+        dispatchVideo({
+          type: ACTION_TYPE_SUCCESS,
+          payload: res.data.video,
+        });
+      })
+      .catch((err) => {
+        dispatchVideo({
+          type: ACTION_TYPE_FAILURE,
+          payload: err.message,
+        });
+      });
+  };
+  const fetchVideos = () => {
+    dispatchVideos({ type: ACTION_TYPE_LOADING });
     axios
       .get("/api/videos")
       .then((res) => {
-        dispatch({
+        dispatchVideos({
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.videos,
         });
       })
       .catch((err) => {
-        dispatch({
+        dispatchVideos({
           type: ACTION_TYPE_FAILURE,
           payload: err.message,
         });
       });
   };
   useEffect(() => {
-    searchVideos();
+    fetchVideos();
   }, []);
   return (
     <VideosContext.Provider
       value={{
-        videos: state,
-        setVideos: dispatch,
-        searchVideos,
+        videos,
+        setVideos: dispatchVideos,
+        getVideos,
         fetchVideos,
         filterVideos,
+        video,
+        setVideo: dispatchVideo,
+        fetchVideoInfo,
       }}
     >
       {children}
