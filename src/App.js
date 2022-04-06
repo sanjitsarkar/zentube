@@ -30,7 +30,14 @@ function App() {
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/playlist" element={<PlaylistsPage />} />
 
-        <Route path="/playlists/:id" element={<PlaylistDetailsPage />} />
+        <Route
+          path="/playlists/:id"
+          element={
+            <PrivateRoute>
+              <PlaylistDetailsPage />
+            </PrivateRoute>
+          }
+        />
 
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
         <Route path="/login" element={<LoginPage />} />
