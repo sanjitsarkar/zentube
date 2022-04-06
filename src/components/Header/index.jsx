@@ -46,7 +46,7 @@ const Header = () => {
         )}
         {isLoggedIn && (
           <li>
-            <button className="btn btn-primary" onClick={logOut}>
+            <button className="btn btn-secondary auth-button" onClick={logOut}>
               Logout
             </button>
           </li>
