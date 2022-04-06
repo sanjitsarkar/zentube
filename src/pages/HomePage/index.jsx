@@ -6,9 +6,9 @@ import VideoGrid from "./VideoGrid";
 
 const HomePage = () => {
   const { setActiveItem } = useNav();
-  useEffect(() => {
+  useEffect(async () => {
     setActiveItem("Home");
-  });
+  }, []);
   return (
     <Layout>
       <TagList />

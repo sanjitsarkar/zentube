@@ -3,6 +3,7 @@ import { useVideos } from "../../context/VideosContext";
 
 const Tag = ({ name, active, setActive }) => {
   const { filterVideos } = useVideos();
+
   return (
     <button
       className={`btn font-bold ${
@@ -10,7 +11,7 @@ const Tag = ({ name, active, setActive }) => {
       } tag`}
       onClick={() => {
         setActive(name);
-        filterVideos({ tag: name });
+        filterVideos({ tag: name, type: "video" });
       }}
     >
       {name}

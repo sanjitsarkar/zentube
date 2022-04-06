@@ -79,7 +79,7 @@ const WatchLaterProvider = ({ children }) => {
         .catch((err) => {
           setToast({
             show: true,
-            content: `Error adding to Watch Later`,
+            content: `Error adding video to Watch Later`,
             type: "info",
           });
           dispatch({
@@ -126,7 +126,7 @@ const WatchLaterProvider = ({ children }) => {
       .catch((err) => {
         setToast({
           show: true,
-          content: `Error removed to Watch Later`,
+          content: `Error removing video from Watch Later`,
           type: "error",
         });
         dispatch({

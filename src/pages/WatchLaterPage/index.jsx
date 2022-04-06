@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { useAuth } from "../../context/AuthContext";
+import { useNav } from "../../context/NavContext";
 import WatchLaterGrid from "./WatchLaterGrid";
 
 const WatchLaterPage = () => {
   const { isLoggedIn } = useAuth();
-
+  const { setActiveItem } = useNav();
+  useEffect(() => {
+    setActiveItem("Watch Later");
+  }, []);
   return (
     <Layout>
       {!isLoggedIn ? (

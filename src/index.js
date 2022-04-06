@@ -10,6 +10,7 @@ import { NavProvider } from "./context/NavContext";
 import { WatchLaterProvider } from "./context/WatchLaterContext";
 import { ToastProvider } from "./context/ToastContext";
 import { AuthProvider } from "./context/AuthContext";
+import { LikedVideosProvider } from "./context/LikedVideosContext";
 
 // Call make Server
 makeServer();
@@ -23,7 +24,9 @@ ReactDOM.render(
             <TagProvider>
               <VideosProvider>
                 <WatchLaterProvider>
-                  <App />
+                  <LikedVideosProvider>
+                    <App />
+                  </LikedVideosProvider>
                 </WatchLaterProvider>
               </VideosProvider>
             </TagProvider>
