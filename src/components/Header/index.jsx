@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./Header.css";
 const Header = () => {
+  const { isLoggedIn, logOut } = useAuth();
+
   return (
     <header
       id="header"
@@ -14,7 +17,7 @@ const Header = () => {
               Zen<span className="text-primary">Tube</span>
             </Link>
           </div>
-          <div className="right">
+          <div className="right row items-center ">
             <div className="input-box input input-dark">
               <i className="fa fa-search"></i>
               <input
@@ -26,16 +29,39 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="row gap-1 items-center">
-        <button>
-          <i className="search-icon fa fa-search text-primary fa-xl"></i>
-        </button>
+      <ul
+        className={`right row items-center gap-1 text-light
+         
+        }`}
+      >
+        <i className="search-icon fa fa-search text-primary fa-xl flex  "></i>
 
-        <button className="col gap-05 items-center">
-          <i className="fa fa-user fa-xl"></i>
-          <span className="text-md ">Login</span>
-        </button>
-      </div>
+        {!isLoggedIn && (
+          <li>
+            <Link to="/login" className="btn btn-primary auth-button">
+              Login
+            </Link>
+          </li>
+        )}
+        {isLoggedIn && (
+          <>
+            <li>
+              <Link to="/">
+                <img
+                  src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Picture.jpg"
+                  alt="user"
+                  className="avatar avatar-xsm "
+                />
+              </Link>
+            </li>
+            <li>
+              <button className="btn btn-primary" onClick={logOut}>
+                Logout
+              </button>
+            </li>
+          </>
+        )}
+      </ul>
     </header>
   );
 };

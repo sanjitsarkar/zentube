@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { TagProvider } from "./context/TagContext";
 import { VideosProvider } from "./context/VideosContext";
 import { NavProvider } from "./context/NavContext";
+import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from "./context/ToastContext";
 
 // Call make Server
 makeServer();
@@ -14,13 +16,17 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <NavProvider>
-        <TagProvider>
-          <VideosProvider>
-            <App />
-          </VideosProvider>
-        </TagProvider>
-      </NavProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <NavProvider>
+            <TagProvider>
+              <VideosProvider>
+                <App />
+              </VideosProvider>
+            </TagProvider>
+          </NavProvider>
+        </AuthProvider>
+      </ToastProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
