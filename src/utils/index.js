@@ -85,3 +85,8 @@ const ACTION_TYPE_SUCCESS = "SUCCESS";
 const ACTION_TYPE_FAILURE = "FAILURE";
 
 export { ACTION_TYPE_FAILURE, ACTION_TYPE_SUCCESS, ACTION_TYPE_LOADING };
+export const PROFILE_IMAGE_URL =
+  "https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Picture.jpg";
+
+export const NOT_AVAILABLE_IMAGE_URL =
+  "https://booyah.live/ssr/_next/static/images/empty-vod-dark-mode.404178ec.png";

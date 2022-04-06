@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, {
   useEffect,
   createContext,
@@ -6,6 +5,8 @@ import React, {
   useReducer,
   useState,
 } from "react";
+import axios from "axios";
+import { useApi } from "../hooks/useApi";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
@@ -22,71 +23,42 @@ const PlaylistProvider = ({ children }) => {
   );
   const [playlistsInfo, setPlaylistsInfo] = useState(new Map());
   const [playlists, dispatchPlaylists] = useReducer(reducer, initialState);
-  const { token, isLoggedIn } = useAuth();
-
+  const { isLoggedIn } = useAuth();
+  const [activeVideo, setActiveVideo] = useState();
   const { setToast } = useToast();
-
-  const fetchPlaylist = () => {
+  const { callApi } = useApi();
+  const fetchPlaylist = async () => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
-    axios
-      .get("/api/user/playlists", {
-        headers: { authorization: token },
-      })
-      .then((res) => {
-        dispatchPlaylists({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlists,
-        });
-      })
-      .catch((err) => {
-        dispatchPlaylists({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      const result = await callApi("get", "playlists", true);
+      dispatchPlaylists({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.playlists,
       });
+    } catch (err) {
+      dispatchPlaylists({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
   };
-  const fetchPlaylistVideos = (playlistId) => {
+  const fetchPlaylistVideos = async (playlistId) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
-    axios
-      .get(`/api/user/playlists/${playlistId}`, {
-        headers: { authorization: token },
-      })
-      .then((res) => {
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlist,
-        });
-      })
-      .catch((err) => {
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      const result = await callApi("get", `playlists/${playlistId}`, true);
+      dispatchPlaylistVideos({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.playlist,
       });
-  };
-  const getPlaylist = (playlistId) => {
-    dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
-    axios
-      .get(`/api/user/playlists/${playlistId}`, {
-        headers: { authorization: token },
-      })
-      .then((res) => {
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlist,
-        });
-      })
-      .catch((err) => {
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    } catch (err) {
+      dispatchPlaylistVideos({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
       });
+    }
   };
 
-  const addPlaylist = (title, description = "") => {
-    dispatchPlaylists({ type: ACTION_TYPE_LOADING });
-
+  const addPlaylist = async (title, description = "") => {
     if (
       playlists.data.findIndex(
         (_playlist) => playlistsInfo.get(_playlist._id).title === title
@@ -103,128 +75,96 @@ const PlaylistProvider = ({ children }) => {
       });
       return;
     }
-    axios
-      .post(
-        "/api/user/playlists",
-        JSON.stringify({
-          title,
-          description,
-        }),
-        {
-          headers: { authorization: token },
-        }
-      )
-      .then((res) => {
-        setToast({
-          show: true,
-          content: "Playlist added successfully",
-          type: "info",
-        });
-        let map = playlistsInfo;
-        map.set(res.data.playlists[res.data.playlists.length - 1]._id, {
-          title,
-          description,
-        });
-        setPlaylistsInfo(() => map);
-        dispatchPlaylists({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlists,
-        });
-      })
-      .catch((err) => {
-        setToast({
-          show: true,
-          content: "Error adding playlist",
-          type: "error",
-        });
-        dispatchPlaylists({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
-      });
-  };
-  const removePlaylist = (playlistId) => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
-    axios
-      .delete(`/api/user/playlists/${playlistId}`, {
-        headers: { authorization: token },
-      })
-      .then((res) => {
-        setToast({
-          show: true,
-          content: "Playlist removed successfully",
-          type: "info",
-        });
-        const map = playlistsInfo;
-        map.delete(playlistId);
-        setPlaylistsInfo(map);
-        dispatchPlaylists({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlists,
-        });
-      })
-      .catch((err) => {
-        setToast({
-          show: true,
-          content: "Error removing playlist",
-          type: "error",
-        });
-        dispatchPlaylists({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      const result = await callApi("post", "playlists", true, {
+        title,
+        description,
       });
+
+      setToast({
+        show: true,
+        content: "Playlist added successfully",
+        type: "info",
+      });
+      let map = playlistsInfo;
+      map.set(result.data.playlists[result.data.playlists.length - 1]._id, {
+        title,
+        description,
+      });
+      setPlaylistsInfo(() => map);
+      dispatchPlaylists({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.playlists,
+      });
+    } catch (err) {
+      setToast({
+        show: true,
+        content: "Error adding playlist",
+        type: "error",
+      });
+      dispatchPlaylists({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
   };
-  const addToPlaylist = (video, id) => {
-    dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
+  const removePlaylist = async (playlistId) => {
+    dispatchPlaylists({ type: ACTION_TYPE_LOADING });
+    try {
+      const result = await callApi("delete", `playlists/${playlistId}`, true);
+      setToast({
+        show: true,
+        content: "Playlist removed successfully",
+        type: "info",
+      });
+      const map = playlistsInfo;
+      map.delete(playlistId);
+      setPlaylistsInfo(map);
+      dispatchPlaylists({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.playlists,
+      });
+    } catch (err) {
+      setToast({
+        show: true,
+        content: "Error removing playlist",
+        type: "error",
+      });
+      dispatchPlaylists({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
+  };
+  const addToPlaylist = async (video, id) => {
     if (!isLoggedIn) {
       setToast({
         show: true,
         content: "Please login to add video to Playlist",
         type: "warning",
       });
-      dispatchPlaylistVideos({
-        type: ACTION_TYPE_FAILURE,
-        payload: "Please login to add video to Playlist",
-      });
+
       return;
     }
-
-    axios
-      .post(
-        `/api/user/playlists/${id}`,
-        JSON.stringify({
-          video,
-        }),
-        {
-          headers: { authorization: token },
-        }
-      )
-      .then((res) => {
-        setToast({
-          show: true,
-          content: `Video added to Playlist ${playlistsInfo.get(id).title}`,
-          type: "info",
-        });
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlist,
-        });
-        fetchPlaylist();
-      })
-      .catch((err) => {
-        setToast({
-          show: true,
-          content: `Error adding to Playlist ${err.message}`,
-          type: "info",
-        });
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      await callApi("post", `playlists/${id}`, true, { video });
+      setToast({
+        show: true,
+        content: `Video added to Playlist ${playlistsInfo.get(id).title}`,
+        type: "info",
       });
+
+      await fetchPlaylist();
+    } catch (err) {
+      setToast({
+        show: true,
+        content: `Error adding to Playlist ${err.message}`,
+        type: "info",
+      });
+    }
   };
-  const removeFromPlaylist = (videoId, playlistId) => {
+  const removeFromPlaylist = async (videoId, playlistId) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
 
     if (!isLoggedIn) {
@@ -233,46 +173,29 @@ const PlaylistProvider = ({ children }) => {
         content: "Please login to add video to Playlist",
         type: "warning",
       });
-      dispatchPlaylistVideos({
-        type: ACTION_TYPE_FAILURE,
-        payload: "Please login to add video to Playlist",
-      });
+
       return;
     }
-
-    axios
-      .delete(
-        `/api/user/playlists/${playlistId}/${videoId}`,
-
-        {
-          headers: { authorization: token },
-        }
-      )
-      .then((res) => {
-        setToast({
-          show: true,
-          content: `Video removed from Playlist ${playlistsInfo.get(id).title}`,
-          type: "error",
-        });
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlist,
-        });
-        fetchPlaylist();
-      })
-      .catch((err) => {
-        setToast({
-          show: true,
-          content: `Error removing from Playlist ${
-            playlistsInfo.get(playlistId).title
-          }`,
-          type: "error",
-        });
-        dispatchPlaylistVideos({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      await callApi("delete", `playlists/${playlistId}/${videoId}`, true);
+      setToast({
+        show: true,
+        content: `Video removed from Playlist ${
+          playlistsInfo.get(playlistId).title
+        }`,
+        type: "error",
       });
+      fetchPlaylist();
+    } catch (err) {
+      console.log("errrrr", err);
+      setToast({
+        show: true,
+        content: `Error removing from Playlist ${
+          playlistsInfo.get(playlistId).title
+        }`,
+        type: "error",
+      });
+    }
   };
 
   useEffect(() => {
@@ -281,7 +204,6 @@ const PlaylistProvider = ({ children }) => {
   return (
     <PlaylistContext.Provider
       value={{
-        getPlaylist,
         playlistVideos,
         setPlaylistVideos: dispatchPlaylistVideos,
         playlists,
@@ -293,6 +215,8 @@ const PlaylistProvider = ({ children }) => {
         removeFromPlaylist,
         fetchPlaylist,
         playlistsInfo,
+        activeVideo,
+        setActiveVideo,
       }}
     >
       {children}

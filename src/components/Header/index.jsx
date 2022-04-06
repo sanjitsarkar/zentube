@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { PROFILE_IMAGE_URL, PROFILE_URL } from "../../utils";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut } = useAuth();
@@ -48,7 +49,7 @@ const Header = () => {
             <li>
               <Link to="/">
                 <img
-                  src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Picture.jpg"
+                  src={PROFILE_IMAGE_URL}
                   alt="user"
                   className="avatar avatar-xsm "
                 />
