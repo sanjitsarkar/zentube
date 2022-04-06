@@ -6,7 +6,7 @@ import ActionBar from "./ActionBar";
 const VideoCard = ({ video }) => {
   const [showActionBar, setShowActionBar] = useState(false);
   return (
-    <div className="card card-md card-dark">
+    <div className="card card-md card-dark" id="video-card">
       <Link to={`/watch/v/${video._id}`}>
         <div className="card-header relative grid place-items-center">
           <i className="fa fa-play absolute fa-2x text-primary o-80 play-icon"></i>
@@ -34,10 +34,10 @@ const VideoCard = ({ video }) => {
           <div className="row items-center w-full mt-05 justify-between">
             <div className="row item-center  gap-1">
               <h5 className="o-70 font-semibold">
-                {convertViewCount(video.viewCount)} Views
+                {convertViewCount(video.viewCount)} views
               </h5>
               <h5 className="o-70 font-semibold">
-                {timeSince(video.publishedAt)} Ago
+                {timeSince(video.publishedAt)} ago
               </h5>
             </div>
           </div>

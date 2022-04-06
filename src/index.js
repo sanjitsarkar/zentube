@@ -6,6 +6,7 @@ import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { TagProvider } from "./context/TagContext";
 import { VideosProvider } from "./context/VideosContext";
+import { NavProvider } from "./context/NavContext";
 
 // Call make Server
 makeServer();
@@ -13,11 +14,13 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TagProvider>
-        <VideosProvider>
-          <App />
-        </VideosProvider>
-      </TagProvider>
+      <NavProvider>
+        <TagProvider>
+          <VideosProvider>
+            <App />
+          </VideosProvider>
+        </TagProvider>
+      </NavProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

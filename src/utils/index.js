@@ -10,34 +10,53 @@ export function convertViewCount(viewCount) {
 
 export function toTimestamp(strDate) {
   let datum = Date.parse(strDate);
-  return datum / 1000;
+  return datum;
 }
 
 export function timeSince(date) {
-  let seconds = Math.floor(new Date(date) / 1000);
+  date = new Date(date);
+  let seconds = Math.floor((new Date() - date) / 1000);
 
   let interval = seconds / 31536000;
-
+  let res;
   if (interval > 1) {
-    return Math.floor(interval) + " years";
+    interval = Math.floor(interval);
+    res = interval + " year";
+    if (interval !== 1) return res + "s";
+    return res;
   }
   interval = seconds / 2592000;
   if (interval > 1) {
-    return Math.floor(interval) + " months";
+    interval = Math.floor(interval);
+    res = interval + " month";
+    if (interval !== 1) return res + "s";
+    return res;
   }
   interval = seconds / 86400;
   if (interval > 1) {
-    return Math.floor(interval) + " days";
+    interval = Math.floor(interval);
+    res = interval + " day";
+    if (interval !== 1) return res + "s";
+    return res;
   }
   interval = seconds / 3600;
   if (interval > 1) {
-    return Math.floor(interval) + " hours";
+    interval = Math.floor(interval);
+    res = interval + " hour";
+    if (interval !== 1) return res + "s";
+    return res;
   }
   interval = seconds / 60;
   if (interval > 1) {
-    return Math.floor(interval) + " minutes";
+    interval = Math.floor(interval);
+    res = interval + " minute";
+    if (interval !== 1) return res + "s";
+    return res;
   }
-  return Math.floor(seconds) + " seconds";
+  interval = Math.floor(interval);
+  res = interval + " second";
+  if (interval !== 1) return res + "s";
+  return res;
 }
 
 const ACTION_TYPE_LOADING = "LOADING";

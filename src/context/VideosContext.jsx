@@ -1,11 +1,5 @@
 import axios from "axios";
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import React, { useEffect, createContext, useContext, useReducer } from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,

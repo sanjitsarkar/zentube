@@ -54,4 +54,25 @@ img.card-img:hover ~ i.fa-play {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.tag {
+  font-size: 0.9rem;
+  padding: 0.5em 1em;
+  border-radius: 3rem;
+}
+
+.video-grid {
+  min-width: 70vw;
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
+  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+#video-card {
+  max-width: 30rem;
+  width: unset;
+  min-width: 16rem;
+}
 /*# sourceMappingURL=index.css.map */
