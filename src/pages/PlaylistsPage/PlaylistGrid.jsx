@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { AddToPlaylistIcon } from "../../assets/icons";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";

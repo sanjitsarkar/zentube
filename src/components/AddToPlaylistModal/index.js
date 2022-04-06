@@ -15,13 +15,8 @@ const AddToPlaylistModal = () => {
   const [showPlaylistInput, setShowPlaylistInput] = useState(false);
   const [playlistTitle, setPlaylistTitle] = useState("");
   const [playlistDesc, setPlaylistDesc] = useState("");
-  const {
-    showPlaylistModal,
-    togglePlaylistModal,
-    video,
-    showPlaylistList,
-    setShowPlaylistList,
-  } = usePlaylistModal();
+  const { showPlaylistModal, togglePlaylistModal, video, showPlaylistList } =
+    usePlaylistModal();
 
   return (
     <div
