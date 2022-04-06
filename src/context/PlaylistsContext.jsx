@@ -187,7 +187,6 @@ const PlaylistProvider = ({ children }) => {
       });
       fetchPlaylist();
     } catch (err) {
-      console.log("errrrr", err);
       setToast({
         show: true,
         content: `Error removing from Playlist ${

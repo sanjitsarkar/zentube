@@ -45,22 +45,11 @@ const Header = () => {
           </li>
         )}
         {isLoggedIn && (
-          <>
-            <li>
-              <Link to="/">
-                <img
-                  src={PROFILE_IMAGE_URL}
-                  alt="user"
-                  className="avatar avatar-xsm "
-                />
-              </Link>
-            </li>
-            <li>
-              <button className="btn btn-primary" onClick={logOut}>
-                Logout
-              </button>
-            </li>
-          </>
+          <li>
+            <button className="btn btn-primary" onClick={logOut}>
+              Logout
+            </button>
+          </li>
         )}
       </ul>
     </header>

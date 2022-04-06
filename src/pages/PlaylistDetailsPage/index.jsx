@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
+import NotAvailable from "../../components/NotAvailable";
 import { usePlaylist } from "../../context/PlaylistsContext";
 import { ACTION_TYPE_SUCCESS } from "../../utils";
 import PlaylistInfo from "./PlaylistInfo";
@@ -10,39 +11,42 @@ import PlaylistVideoList from "./PlaylistVideoList";
 
 const PlaylistDetailsPage = () => {
   const location = useLocation();
-  const {
-    fetchPlaylists,
-    playlistsInfo,
-    playlists,
-    setPlaylistVideos,
-    playlistVideos,
-  } = usePlaylist();
+  const { playlistsInfo, playlists, setPlaylistVideos, playlistVideos } =
+    usePlaylist();
   useEffect(() => {
     let pathName = location.pathname.split("/");
     let playlistId = pathName[pathName.length - 1];
     setPlaylistVideos({
       type: ACTION_TYPE_SUCCESS,
-      payload: playlists.find((_playlist) => _playlist._id === playlistId),
+      payload: playlists.data.find((_playlist) => _playlist._id === playlistId),
     });
   }, [location]);
-  useEffect(() => {}, [playlistVideos]);
   return (
     <Layout>
-      {!playlistVideos.loading && <Loader />}
+      <div className="col">
+        {playlists.loading && <Loader />}
 
-      {/* {!playlistVideos.loading &&
-        playlistVideos.data &&
-        playlistVideos.data.videos.length > 0 && (
-          <PlaylistVideoInfo playlist={playlistVideos.data} />
-        )} */}
-      <div className="col w-2-6">
-        <PlaylistInfo
-          playlistVideos={playlistVideos}
-          playlistsInfo={playlistsInfo}
-        />
         {!playlistVideos.loading &&
-          playlistVideos.data &&
-          playlistVideos.data.videos > 0 && <PlaylistVideoList />}
+        playlistVideos.data &&
+        playlistVideos.data.videos.length > 0 ? (
+          <>
+            <PlaylistInfo
+              playlistId={playlistVideos.data._id}
+              playlistsInfo={playlistsInfo}
+            />
+            <div>
+              <PlaylistVideoInfo playlist={playlistVideos.data} />
+              <PlaylistVideoList playlist={playlistVideos.data} />
+            </div>
+          </>
+        ) : (
+          <div className="text-center col  items-center">
+            <NotAvailable title="No video is available in the playlist" />
+            <Link to="/" className="btn btn-primary w-fit mt-2 ">
+              Go to Home
+            </Link>
+          </div>
+        )}
       </div>
     </Layout>
   );

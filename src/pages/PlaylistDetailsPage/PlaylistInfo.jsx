@@ -1,12 +1,19 @@
 import React from "react";
+import { PlaySpeedIcon } from "../../assets/icons";
 
-const PlaylistInfo = ({ playlistVideos, playlistsInfo }) => {
+const PlaylistInfo = ({ playlistId, playlistsInfo }) => {
   return (
-    <div>
-      <h3 className="text-primary playlist-title">
-        {/* {playlistsInfo.get(playlistVideos._id).title} */}
+    <div className="p-2 bg-black-6 mb-3">
+      <h4 className="text-xl mb-1 text-primary row items-center gap-05">
+        <PlaySpeedIcon className={"text-primary"} />
+        <span>Playlist Info</span>
+      </h4>
+      <h3 className="text-lg row items-center ml-1">
+        {playlistsInfo.get(playlistId).title}
       </h3>
-      {/* <p>{playlistsInfo.get(playlistVideos._id).description}</p> */}
+      <p className="o-60 ml-1 text-md">
+        {playlistsInfo.get(playlistId).description}
+      </p>
     </div>
   );
 };
