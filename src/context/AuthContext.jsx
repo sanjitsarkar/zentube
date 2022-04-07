@@ -60,6 +60,7 @@ const AuthProvider = ({ children }) => {
           content: `Welcome, ${res.data.createdUser.firstName}`,
           type: "info",
         });
+        setLoginCred(initialLoginCredState);
         setSignupCred(initialSignupCredState);
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.createdUser });
 
@@ -98,6 +99,7 @@ const AuthProvider = ({ children }) => {
         });
         localStorage.setItem("token", res.data.encodedToken);
         setLoginCred(initialLoginCredState);
+        setSignupCred(initialSignupCredState);
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.foundUser });
 
         setIsLoggedIn(true);

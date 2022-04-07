@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { PROFILE_IMAGE_URL, PROFILE_URL } from "../../utils";
+import { useVideos } from "../../context/VideosContext";
+
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut } = useAuth();
-
+  const { searchVideos } = useVideos();
+  const navigate = useNavigate();
   return (
     <header
       id="header"
@@ -24,6 +26,14 @@ const Header = () => {
               type="search"
               placeholder="Search videos..."
               className="input"
+              onClick={() => {
+                if (!location.pathname.includes("/")) {
+                  navigate("/");
+                }
+              }}
+              onChange={async (e) => {
+                await searchVideos(e.target.value);
+              }}
             />
           </div>
         </div>

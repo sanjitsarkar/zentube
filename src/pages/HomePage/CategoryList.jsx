@@ -1,11 +1,11 @@
 import React from "react";
 import Loader from "../../components/Loader";
 import { useCategory } from "../../context/CategoryContext";
+import { useVideos } from "../../context/VideosContext";
 import Category from "./Category";
 
 const CategoryList = () => {
   const { categories, activeCategory, setActiveCategory } = useCategory();
-
   return (
     <div className="row gap-1">
       <Category

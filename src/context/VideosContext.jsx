@@ -20,6 +20,10 @@ const VideosProvider = ({ children }) => {
     reducer,
     initialState
   );
+  const [filters, setFilters] = useState({
+    category: "All",
+    search: "",
+  });
   const [videoInfo, dispatchVideoInfo] = useReducer(reducer, initialState);
 
   const getVideos = async () => {
@@ -28,6 +32,24 @@ const VideosProvider = ({ children }) => {
       return { loading: false, data: res.data.videos, error: "" };
     } catch (err) {
       return { loading: false, data: [], error: err.message };
+    }
+  };
+  const searchVideos = async (searchTerm) => {
+    dispatchVideos({ type: ACTION_TYPE_LOADING });
+    try {
+      const res = await getVideos();
+
+      dispatchVideos({
+        type: ACTION_TYPE_SUCCESS,
+        payload: res.data.filter((video) =>
+          video.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      });
+    } catch (err) {
+      dispatchVideos({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
     }
   };
   const filterVideos = (filters) => {
@@ -116,6 +138,7 @@ const VideosProvider = ({ children }) => {
     <VideosContext.Provider
       value={{
         videos,
+        searchVideos,
         setVideos: dispatchVideos,
         getVideos,
         fetchVideos,
@@ -124,6 +147,8 @@ const VideosProvider = ({ children }) => {
         relatedVideos,
         setVideo: dispatchVideoInfo,
         fetchVideoInfo,
+        filters,
+        setFilters,
       }}
     >
       {children}
