@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";
+import { useNav } from "../../context/NavContext";
 import { usePlaylist } from "../../context/PlaylistsContext";
 import { ACTION_TYPE_SUCCESS } from "../../utils";
 import PlaylistInfo from "./PlaylistInfo";
@@ -11,6 +12,10 @@ import PlaylistVideoList from "./PlaylistVideoList";
 
 const PlaylistDetailsPage = () => {
   const location = useLocation();
+  const { setActiveItem } = useNav();
+  useEffect(() => {
+    setActiveItem("");
+  }, []);
   const { playlistsInfo, playlists, setPlaylistVideos, playlistVideos } =
     usePlaylist();
   useEffect(() => {
@@ -20,34 +25,35 @@ const PlaylistDetailsPage = () => {
       type: ACTION_TYPE_SUCCESS,
       payload: playlists.data.find((_playlist) => _playlist._id === playlistId),
     });
-  }, [location]);
+  }, [location, playlists]);
   return (
     <Layout>
-      <div className="col">
+      <>
         {playlists.loading && <Loader />}
 
         {!playlistVideos.loading &&
-        playlistVideos.data &&
-        playlistVideos.data.videos.length > 0 ? (
-          <>
-            <PlaylistInfo
-              playlistId={playlistVideos.data._id}
-              playlistsInfo={playlistsInfo}
-            />
-            <div>
-              <PlaylistVideoInfo playlist={playlistVideos.data} />
-              <PlaylistVideoList playlist={playlistVideos.data} />
-            </div>
-          </>
-        ) : (
-          <div className="text-center col  items-center">
+          playlistVideos.data &&
+          playlistVideos.data.videos.length > 0 && (
+            <>
+              <PlaylistInfo
+                playlistId={playlistVideos.data._id}
+                playlistsInfo={playlistsInfo}
+              />
+              <div>
+                <PlaylistVideoInfo playlist={playlistVideos.data} />
+                <PlaylistVideoList playlist={playlistVideos.data} />
+              </div>
+            </>
+          )}
+        {!playlistVideos.loading && playlistVideos.data.videos.length === 0 && (
+          <div className="w-screen h-4-6 grid place-content-center place-items-center gap-1 ">
             <NotAvailable title="No video is available in the playlist" />
             <Link to="/" className="btn btn-primary w-fit mt-2 ">
               Go to Home
             </Link>
           </div>
         )}
-      </div>
+      </>
     </Layout>
   );
 };

@@ -1,9 +1,9 @@
 import React from "react";
-import { NOT_AVAILABLE_IMAGE_URL } from "../../utils";
+import empty from "../../assets/icons/empty.png";
 
-const NotAvailable = ({ title, img = NOT_AVAILABLE_IMAGE_URL }) => {
+const NotAvailable = ({ title, img = empty }) => {
   return (
-    <div className="w-full h-4-6 grid place-content-center gap-2 place-items-center">
+    <div className="w-full  grid place-content-center gap-2 place-items-center">
       <img src={img} alt="No Video Available" />
       <h2 className="text-center">{title}</h2>
     </div>

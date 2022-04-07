@@ -185,7 +185,7 @@ const PlaylistProvider = ({ children }) => {
         }`,
         type: "error",
       });
-      fetchPlaylist();
+      await fetchPlaylist();
     } catch (err) {
       setToast({
         show: true,
