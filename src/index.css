@@ -55,7 +55,7 @@ img.card-img:hover ~ i.fa-play {
   overflow: hidden;
 }
 
-.tag,
+.category-button,
 .auth-button {
   font-size: 0.9rem;
   padding: 0.5em 1em;

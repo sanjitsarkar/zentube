@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import Iframe from "react-iframe-click";
 import {
   AddToPlaylistIcon,
   LikedIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
+import { useHistory } from "../../context/HistoryContext";
 import { useLikedVideos } from "../../context/LikedVideosContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
-import { convertViewCount, timeSince } from "../../utils";
+import { convertTimestampToDate } from "../../utils";
 
 const VideoInfo = ({ video }) => {
   const { likedVideos, addToLikedVideos, removeFromLikedVideos } =
@@ -14,6 +16,7 @@ const VideoInfo = ({ video }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const [isInLikedVideos, setIsInLikedVideos] = useState(false);
+  const { addToHistory } = useHistory();
 
   useEffect(() => {
     if (
@@ -39,25 +42,25 @@ const VideoInfo = ({ video }) => {
 
   return (
     <div className="w-screen">
-      <iframe
+      <Iframe
         width="100%"
         height="500px"
         className="bg-black"
+        id="iframe"
         src={`https://www.youtube.com/embed/${videoId}`}
+        onInferredClick={() => addToHistory(video)}
         title="YouTube video player"
         frameBorder="0"
-      ></iframe>
+      ></Iframe>
       <div className="video-info pt-2 ">
         <div className="pl-2 pr-2">
           <h1 className="card-title">{video.title}</h1>
 
           <div className="row items-center w-full mt-05 justify-between">
             <div className="row item-center  gap-1 text-lg">
+              <h5 className="o-70 font-semibold">{video.viewCount} views</h5>
               <h5 className="o-70 font-semibold">
-                {convertViewCount(video.viewCount)} views
-              </h5>
-              <h5 className="o-70 font-semibold">
-                {timeSince(video.publishedAt)} ago
+                {convertTimestampToDate(video.publishedAt)}
               </h5>
             </div>
             <div className="row item-center  ">

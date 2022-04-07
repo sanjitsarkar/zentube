@@ -58,6 +58,27 @@ export function timeSince(date) {
   if (interval !== 1) return res + "s";
   return res;
 }
+export function convertTimestampToDate(timestamp) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let date = new Date(timestamp);
+
+  return (
+    months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+  );
+}
 
 const ACTION_TYPE_LOADING = "LOADING";
 const ACTION_TYPE_SUCCESS = "SUCCESS";

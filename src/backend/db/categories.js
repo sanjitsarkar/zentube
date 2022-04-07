@@ -1,29 +1,29 @@
 import { v4 as uuid } from "uuid";
 
 /**
- * Category Database can be added here.
- * You can add category of your wish with different attributes
+ *  Database can be added here.
+ * You can add  of your wish with different attributes
  * */
 
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "EDM",
+    name: "EDM",
     description: "Electronic Dance Music",
   },
   {
     _id: uuid(),
-    categoryName: "Hip Hop",
+    name: "Hip Hop",
     description: "",
   },
   {
     _id: uuid(),
-    categoryName: "Classical",
+    name: "Classical",
     description: "",
   },
   {
     _id: uuid(),
-    categoryName: "Pop",
+    name: "Pop",
     description: "",
   },
 ];

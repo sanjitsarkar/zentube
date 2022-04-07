@@ -8,24 +8,24 @@ import {
 } from "../utils";
 import { useAuth } from "./AuthContext";
 import { useToast } from "./ToastContext";
-const LikedVideosContext = createContext();
+const HistoryContext = createContext();
 
-const LikedVideosProvider = ({ children }) => {
+const HistoryProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { token, isLoggedIn } = useAuth();
 
   const { setToast } = useToast();
 
-  const fetchLikedVideos = () => {
+  const fetchHistory = () => {
     dispatch({ type: ACTION_TYPE_LOADING });
     axios
-      .get("/api/user/likes", {
+      .get("/api/user/history", {
         headers: { authorization: token },
       })
       .then((res) => {
         dispatch({
           type: ACTION_TYPE_SUCCESS,
-          payload: res.data.likes,
+          payload: res.data.history,
         });
       })
       .catch((err) => {
@@ -35,15 +35,10 @@ const LikedVideosProvider = ({ children }) => {
         });
       });
   };
-  const addToLikedVideos = (video) => {
+  const addToHistory = (video) => {
     dispatch({ type: ACTION_TYPE_LOADING });
 
     if (!isLoggedIn) {
-      setToast({
-        show: true,
-        content: "Please login to like video",
-        type: "warning",
-      });
       dispatch({
         type: ACTION_TYPE_SUCCESS,
         payload: [],
@@ -53,7 +48,7 @@ const LikedVideosProvider = ({ children }) => {
 
     axios
       .post(
-        "/api/user/likes",
+        "/api/user/history",
         JSON.stringify({
           video,
         }),
@@ -62,37 +57,22 @@ const LikedVideosProvider = ({ children }) => {
         }
       )
       .then((res) => {
-        setToast({
-          show: true,
-          content: `Video added to Liked Videos`,
-          type: "info",
-        });
         dispatch({
           type: ACTION_TYPE_SUCCESS,
-          payload: res.data.likes,
+          payload: res.data.history,
         });
       })
       .catch((err) => {
-        setToast({
-          show: true,
-          content: `Error adding video to Liked Videos`,
-          type: "info",
-        });
         dispatch({
           type: ACTION_TYPE_FAILURE,
           payload: err.message,
         });
       });
   };
-  const removeFromLikedVideos = (id) => {
+  const removeFromHistory = (id) => {
     dispatch({ type: ACTION_TYPE_LOADING });
 
     if (!isLoggedIn) {
-      setToast({
-        show: true,
-        content: "Please login to dislike video",
-        type: "warning",
-      });
       dispatch({
         type: ACTION_TYPE_SUCCESS,
         payload: [],
@@ -102,7 +82,7 @@ const LikedVideosProvider = ({ children }) => {
 
     axios
       .delete(
-        `/api/user/likes/${id}`,
+        `/api/user/history/${id}`,
 
         {
           headers: { authorization: token },
@@ -111,18 +91,18 @@ const LikedVideosProvider = ({ children }) => {
       .then((res) => {
         setToast({
           show: true,
-          content: `Video removed from Liked Videos`,
+          content: `Video removed from History`,
           type: "error",
         });
         dispatch({
           type: ACTION_TYPE_SUCCESS,
-          payload: res.data.likes,
+          payload: res.data.history,
         });
       })
       .catch((err) => {
         setToast({
           show: true,
-          content: `Error removing video from Liked Videos`,
+          content: `Error removing video from History`,
           type: "error",
         });
         dispatch({
@@ -132,23 +112,54 @@ const LikedVideosProvider = ({ children }) => {
       });
   };
 
+  const clearAllHistory = () => {
+    dispatch({ type: ACTION_TYPE_LOADING });
+    axios
+      .delete("/api/user/history/all", {
+        headers: { authorization: token },
+      })
+      .then((res) => {
+        setToast({
+          show: true,
+          content: `History cleared successfully`,
+          type: "info",
+        });
+        dispatch({
+          type: ACTION_TYPE_SUCCESS,
+          payload: res.data.history,
+        });
+      })
+      .catch((err) => {
+        setToast({
+          show: true,
+          content: `Error clearing history`,
+          type: "errror",
+        });
+        dispatch({
+          type: ACTION_TYPE_FAILURE,
+          payload: err.message,
+        });
+      });
+  };
+
   useEffect(() => {
-    fetchLikedVideos();
+    fetchHistory();
   }, []);
   return (
-    <LikedVideosContext.Provider
+    <HistoryContext.Provider
       value={{
-        likedVideos: state,
-        setLikedVideos: dispatch,
-        addToLikedVideos,
-        removeFromLikedVideos,
-        fetchLikedVideos,
+        history: state,
+        setHistory: dispatch,
+        addToHistory,
+        removeFromHistory,
+        fetchHistory,
+        clearAllHistory,
       }}
     >
       {children}
-    </LikedVideosContext.Provider>
+    </HistoryContext.Provider>
   );
 };
 
-const useLikedVideos = () => useContext(LikedVideosContext);
-export { useLikedVideos, LikedVideosProvider };
+const useHistory = () => useContext(HistoryContext);
+export { useHistory, HistoryProvider };

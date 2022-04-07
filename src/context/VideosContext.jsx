@@ -20,7 +20,7 @@ const VideosProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const [video, dispatchVideo] = useReducer(reducer, initialState);
+  const [videoInfo, dispatchVideoInfo] = useReducer(reducer, initialState);
 
   const getVideos = async () => {
     try {
@@ -41,14 +41,14 @@ const VideosProvider = ({ children }) => {
       .then((res) => {
         let videos = res.data.filter((video) => {
           if (
-            filters.tag === "All" ||
-            (filters.tag && video.tags.includes(filters.tag))
+            filters.category === "All" ||
+            (filters.category && video.category === filters.category)
           ) {
             return true;
           }
           if (
-            filters.category === "All" ||
-            (filters.category && video.category.includes(filters.category))
+            filters.tag === "All" ||
+            (filters.tag && video.tag.includes(filters.tag))
           ) {
             return true;
           }
@@ -76,17 +76,17 @@ const VideosProvider = ({ children }) => {
       });
   };
   const fetchVideoInfo = (videoId) => {
-    dispatchVideo({ type: ACTION_TYPE_LOADING });
+    dispatchVideoInfo({ type: ACTION_TYPE_LOADING });
     axios
       .get(`/api/video/${videoId}`)
       .then((res) => {
-        dispatchVideo({
+        dispatchVideoInfo({
           type: ACTION_TYPE_SUCCESS,
           payload: res.data.video,
         });
       })
       .catch((err) => {
-        dispatchVideo({
+        dispatchVideoInfo({
           type: ACTION_TYPE_FAILURE,
           payload: err.message,
         });
@@ -120,9 +120,9 @@ const VideosProvider = ({ children }) => {
         getVideos,
         fetchVideos,
         filterVideos,
-        video,
+        videoInfo,
         relatedVideos,
-        setVideo: dispatchVideo,
+        setVideo: dispatchVideoInfo,
         fetchVideoInfo,
       }}
     >

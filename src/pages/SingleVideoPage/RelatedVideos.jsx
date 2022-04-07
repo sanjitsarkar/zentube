@@ -7,7 +7,7 @@ const RelatedVideos = ({ category, videoId }) => {
   const { filterVideos, relatedVideos } = useVideos();
   useEffect(async () => {
     await filterVideos({ category, type: "related" });
-  }, [category]);
+  }, []);
   return (
     <div className="mt-3">
       <h3>Related Videos</h3>
