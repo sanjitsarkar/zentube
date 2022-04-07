@@ -46,7 +46,7 @@ const PlaylistDetailsPage = () => {
             </>
           )}
         {!playlistVideos.loading && playlistVideos.data.videos.length === 0 && (
-          <div className="w-screen h-4-6 grid place-content-center place-items-center gap-1 ">
+          <div className=" h-4-6 grid place-content-center place-items-center gap-1 ">
             <NotAvailable title="No video is available in the playlist" />
             <Link to="/" className="btn btn-primary w-fit mt-2 ">
               Go to Home
