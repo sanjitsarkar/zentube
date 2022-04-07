@@ -67,8 +67,8 @@ img.card-img:hover ~ i.fa-play {
   display: -ms-grid;
   display: grid;
   justify-items: center;
-  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  -ms-grid-columns: (minmax(16rem, 1fr)) [auto-fill];
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
 
 #video-card {
@@ -82,6 +82,26 @@ form.form {
   background-color: var(--light-grey);
   margin-bottom: 15vh;
   margin-top: 20vh;
+}
+@media only screen and (max-width: 525px) {
+  main.main {
+    margin-top: 10vw;
+  }
+}
+@media only screen and (max-width: 430px) {
+  main.main {
+    margin-top: 20vw;
+  }
+}
+@media only screen and (max-width: 340px) {
+  main.main {
+    margin-top: 25vw;
+  }
+}
+@media only screen and (max-width: 255px) {
+  main.main {
+    margin-top: 35vw;
+  }
 }
 
 @media only screen and (max-width: 535px) {
@@ -138,8 +158,8 @@ textarea {
   display: grid;
   gap: 1rem;
   justify-items: start;
-  -ms-grid-columns: (minmax(18rem, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  -ms-grid-columns: (minmax(18rem, 1fr)) [auto-fill];
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 }
 
 .playlist-card {
