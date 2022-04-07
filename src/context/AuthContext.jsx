@@ -66,6 +66,8 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
       })
       .catch((err) => {
+        console.log(signupCred);
+        console.log("err", err);
         if (err.message)
           setToast({
             show: true,

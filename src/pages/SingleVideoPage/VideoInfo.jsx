@@ -16,15 +16,15 @@ import { convertTimestampToDate } from "../../utils";
 const VideoInfo = ({ video }) => {
   const { likedVideos, addToLikedVideos, removeFromLikedVideos } =
     useLikedVideos();
-  const { isLoggedIn } = useAuth();
-  const { setToast } = useToast();
+
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const [isInLikedVideos, setIsInLikedVideos] = useState(false);
   const { addToHistory } = useHistory();
   const { togglePlaylistModal, setVideo, setShowPlaylistList } =
     usePlaylistModal();
-
+  const { isLoggedIn } = useAuth();
+  const { setToast } = useToast();
   useEffect(() => {
     if (
       watchLater.data.findIndex((element) => element._id == video._id) !== -1

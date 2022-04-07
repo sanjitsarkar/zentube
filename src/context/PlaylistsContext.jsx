@@ -144,7 +144,6 @@ const PlaylistProvider = ({ children }) => {
         content: "Please login to add video to Playlist",
         type: "warning",
       });
-
       return;
     }
     try {
@@ -173,7 +172,6 @@ const PlaylistProvider = ({ children }) => {
         content: "Please login to add video to Playlist",
         type: "warning",
       });
-
       return;
     }
     try {
