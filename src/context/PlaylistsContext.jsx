@@ -111,7 +111,7 @@ const PlaylistProvider = ({ children }) => {
   };
   const removePlaylist = async (playlistId) => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
- 
+
     axios
       .delete(`/api/user/playlists/${playlistId}`, {
         headers: { authorization: token },
@@ -141,9 +141,8 @@ const PlaylistProvider = ({ children }) => {
           payload: err.message,
         });
       });
-     
   };
-  const addToPlaylist = (video, id) => {
+  const addToPlaylist = async (video, id) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
     if (!isLoggedIn) {
       setToast({
