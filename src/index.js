@@ -29,15 +29,11 @@ ReactDOM.render(
                 <VideosProvider>
                   <WatchLaterProvider>
                     <LikedVideosProvider>
-<<<<<<< HEAD
-                      <App />
-=======
                       <PlaylistProvider>
                         <PlaylistModalProvider>
                           <App />
                         </PlaylistModalProvider>
                       </PlaylistProvider>
->>>>>>> pages/playlist-details-page
                     </LikedVideosProvider>
                   </WatchLaterProvider>
                 </VideosProvider>

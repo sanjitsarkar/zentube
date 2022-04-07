@@ -1,6 +1,7 @@
 import MockmanEs from "mockman-js";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import AddToPlaylistModal from "./components/AddToPlaylistModal";
 import PrivateRoute from "./components/PrivateRoute";
 import Toast from "./components/Toast";
 import { useToast } from "./context/ToastContext";
@@ -45,6 +46,7 @@ function App() {
         <Route path="/mockman" element={<MockmanEs />} />
       </Routes>
       <Toast content={toast.content} type={toast.type} show={toast.show} />
+      <AddToPlaylistModal />
     </>
   );
 }

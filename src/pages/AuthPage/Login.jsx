@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { useAuth } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const { logIn, loginCred, setLoginCred } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <>
       <Header />
@@ -33,7 +35,7 @@ const LoginPage = () => {
             <div className="input-box input input-light">
               <i className="fa fa-lock"></i>
               <input
-                type="password"
+                type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Enter your password"
                 className="input"
                 defaultValue={loginCred.password}
@@ -41,8 +43,14 @@ const LoginPage = () => {
                   setLoginCred({ ...loginCred, password: e.target.value })
                 }
                 required
+                autoComplete="true"
               />
-              <i className="fa fa-eye"></i>
+              <i
+                className={`fa cursor-pointer ${
+                  !showPassword ? "fa-eye" : "fa-eye-slash"
+                }`}
+                onClick={() => setShowPassword(!showPassword)}
+              ></i>
             </div>
 
             <label className="checkbox-container">

@@ -5,6 +5,7 @@ import {
   WatchLaterIcon,
 } from "../../assets/icons";
 import { useAuth } from "../../context/AuthContext";
+import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import ActionButton from "./ActionButton";
@@ -48,14 +49,11 @@ const ActionBar = ({ video, show }) => {
               content: "Please login to add video to Playlist",
               type: "warning",
             });
-<<<<<<< HEAD
-=======
           else {
             togglePlaylistModal();
             setShowPlaylistList(true);
             setVideo(video);
           }
->>>>>>> pages/playlist-details-page
         }}
       />
     </div>
