@@ -138,16 +138,11 @@ const PlaylistProvider = ({ children }) => {
     }
   };
   const addToPlaylist = async (video, id) => {
-    dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });
     if (!isLoggedIn) {
       setToast({
         show: true,
         content: "Please login to add video to Playlist",
         type: "warning",
-      });
-      dispatchPlaylistVideos({
-        type: ACTION_TYPE_FAILURE,
-        payload: "Please login to add video to Playlist",
       });
       return;
     }
@@ -176,10 +171,6 @@ const PlaylistProvider = ({ children }) => {
         show: true,
         content: "Please login to add video to Playlist",
         type: "warning",
-      });
-      dispatchPlaylistVideos({
-        type: ACTION_TYPE_FAILURE,
-        payload: "Please login to add video to Playlist",
       });
       return;
     }
