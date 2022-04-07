@@ -111,36 +111,31 @@ const PlaylistProvider = ({ children }) => {
   };
   const removePlaylist = async (playlistId) => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
-
-    axios
-      .delete(`/api/user/playlists/${playlistId}`, {
-        headers: { authorization: token },
-      })
-      .then((res) => {
-        setToast({
-          show: true,
-          content: "Playlist removed successfully",
-          type: "info",
-        });
-        const map = playlistsInfo;
-        map.delete(playlistId);
-        setPlaylistsInfo(map);
-        dispatchPlaylists({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.playlists,
-        });
-      })
-      .catch((err) => {
-        setToast({
-          show: true,
-          content: "Error removing playlist",
-          type: "error",
-        });
-        dispatchPlaylists({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      const result = await callApi("delete", `playlists/${playlistId}`, true);
+      setToast({
+        show: true,
+        content: "Playlist removed successfully",
+        type: "info",
       });
+      const map = playlistsInfo;
+      map.delete(playlistId);
+      setPlaylistsInfo(map);
+      dispatchPlaylists({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.playlists,
+      });
+    } catch (err) {
+      setToast({
+        show: true,
+        content: "Error removing playlist",
+        type: "error",
+      });
+      dispatchPlaylists({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
   };
   const addToPlaylist = async (video, id) => {
     dispatchPlaylistVideos({ type: ACTION_TYPE_LOADING });

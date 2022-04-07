@@ -5,9 +5,11 @@ import {
   LikedIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
+import { useAuth } from "../../context/AuthContext";
 import { useHistory } from "../../context/HistoryContext";
 import { useLikedVideos } from "../../context/LikedVideosContext";
 import { usePlaylistModal } from "../../context/PlaylistModalContext";
+import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertTimestampToDate } from "../../utils";
 
@@ -21,7 +23,8 @@ const VideoInfo = ({ video }) => {
   const { addToHistory } = useHistory();
   const { togglePlaylistModal, setVideo, setShowPlaylistList } =
     usePlaylistModal();
-
+  const { isLoggedIn } = useAuth();
+  const { setToast } = useToast();
   useEffect(() => {
     if (
       watchLater.data.findIndex((element) => element._id == video._id) !== -1
@@ -101,9 +104,17 @@ const VideoInfo = ({ video }) => {
               <button
                 className="text-lg row items-center gap-05"
                 onClick={() => {
-                  setShowPlaylistList(true);
-                  setVideo(video);
-                  togglePlaylistModal();
+                  if (!isLoggedIn)
+                    setToast({
+                      show: true,
+                      content: "Please login to add video to Playlist",
+                      type: "warning",
+                    });
+                  else {
+                    setShowPlaylistList(true);
+                    setVideo(video);
+                    togglePlaylistModal();
+                  }
                 }}
               >
                 <AddToPlaylistIcon />
