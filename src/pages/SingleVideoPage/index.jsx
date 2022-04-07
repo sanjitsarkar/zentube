@@ -1,46 +1,29 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
+import VideoCard from "../../components/VideoCard.jsx";
 import { useVideos } from "../../context/VideosContext";
-import RelatedVideos from "./RelatedVideos";
-import VideoInfo from "./VideoInfo";
-import "./SingleVideoPage.css";
-const SingleVideoPage = () => {
-  const location = useLocation();
-  const { fetchVideoInfo, video } = useVideos();
-  useEffect(() => {
-    let pathName = location.pathname.split("/");
-    let videoId = pathName[pathName.length - 1];
-    fetchVideoInfo(videoId);
-  }, [location]);
 
+const RelatedVideos = ({ category, videoId }) => {
+  const { filterVideos, relatedVideos } = useVideos();
+  useEffect(async () => {
+    await filterVideos({ category, type: "related" });
+  }, []);
   return (
-    <Layout>
-      <div className="row flex-wrap ">
-        {video.loading && <Loader />}
+    <div className="mt-3">
+      <h3>Related Videos</h3>
+      <div className={`btn font-bold  btn-primary tag mt-2`}>{category}</div>
 
-        {!video.loading && video.data.length !== 0 && (
-          <>
-            <VideoInfo video={video.data} />
-            <RelatedVideos
-              videoId={video.data._id}
-              category={video.data.category}
-            />
-          </>
-        )}
-
-        {!video.loading && video.data.length === 0 && (
-          <div className="w-full h-4-6 grid place-content-center place-items-center gap-1">
-            <h2>Video is not found</h2>
-            <Link to="/" className="btn btn-primary w-fit">
-              Go to Home
-            </Link>
-          </div>
-        )}
+      {relatedVideos.loading && <Loader />}
+      <div className=" mt-3 gap-05 video-grid  ">
+        {!relatedVideos.loading &&
+          relatedVideos.data.length > 0 &&
+          relatedVideos.data.map((video, i) => {
+            if (video._id !== videoId)
+              return <VideoCard video={video} key={video._id} />;
+          })}
       </div>
-    </Layout>
+    </div>
   );
 };
 
-export default SingleVideoPage;
+export default RelatedVideos;

@@ -66,6 +66,8 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn(true);
       })
       .catch((err) => {
+        console.log(signupCred);
+        console.log("err", err);
         if (err.message)
           setToast({
             show: true,
@@ -126,6 +128,7 @@ const AuthProvider = ({ children }) => {
     });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };

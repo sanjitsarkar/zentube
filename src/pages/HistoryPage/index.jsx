@@ -19,7 +19,7 @@ const HistoryPage = () => {
             <Link to="/login" className="text-primary">
               Log In
             </Link>{" "}
-            to see your History videos.
+            to see your history.
           </h2>
         </div>
       ) : (

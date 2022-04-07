@@ -5,19 +5,26 @@ import {
   LikedIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
+import { useAuth } from "../../context/AuthContext";
 import { useHistory } from "../../context/HistoryContext";
 import { useLikedVideos } from "../../context/LikedVideosContext";
+import { usePlaylistModal } from "../../context/PlaylistModalContext";
+import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertTimestampToDate } from "../../utils";
 
 const VideoInfo = ({ video }) => {
   const { likedVideos, addToLikedVideos, removeFromLikedVideos } =
     useLikedVideos();
+
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
   const [isInLikedVideos, setIsInLikedVideos] = useState(false);
   const { addToHistory } = useHistory();
-
+  const { togglePlaylistModal, setVideo, setShowPlaylistList } =
+    usePlaylistModal();
+  const { isLoggedIn } = useAuth();
+  const { setToast } = useToast();
   useEffect(() => {
     if (
       watchLater.data.findIndex((element) => element._id == video._id) !== -1
@@ -94,7 +101,22 @@ const VideoInfo = ({ video }) => {
                 />
                 <span>Watch Later</span>
               </button>
-              <button className="text-lg row items-center gap-05">
+              <button
+                className="text-lg row items-center gap-05"
+                onClick={() => {
+                  if (!isLoggedIn)
+                    setToast({
+                      show: true,
+                      content: "Please login to add video to Playlist",
+                      type: "warning",
+                    });
+                  else {
+                    setShowPlaylistList(true);
+                    setVideo(video);
+                    togglePlaylistModal();
+                  }
+                }}
+              >
                 <AddToPlaylistIcon />
                 <span>Add to playlist</span>
               </button>

@@ -102,4 +102,52 @@ form.form {
   width: -moz-max-content;
   width: max-content;
 }
+
+input,
+textarea {
+  color: black;
+}
+
+textarea {
+  height: 30vh;
+  width: 40vw;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+#input-dark {
+  color: var(--light-color);
+}
+
+.playlist-items {
+  max-height: 25vh;
+}
+
+.playlist-title {
+  width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-grid {
+  min-width: 70vw;
+  display: -ms-grid;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  -ms-grid-columns: (minmax(18rem, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+}
+
+.playlist-card {
+  height: 46vh;
+  width: 100%;
+}
+
+.playlist-card .card-top img {
+  height: 13rem;
+}
 /*# sourceMappingURL=index.css.map */
