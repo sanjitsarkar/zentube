@@ -5,6 +5,7 @@ import {
   WatchLaterIcon,
 } from "../../assets/icons";
 import { useAuth } from "../../context/AuthContext";
+import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import ActionButton from "./ActionButton";
