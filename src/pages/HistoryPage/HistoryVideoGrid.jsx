@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import NotAvailable from "../../components/NotAvailable";
 import { useHistory } from "../../context/HistoryContext";
 import HistoryVideoCard from "./HistoryVideoCard";
 
@@ -27,7 +28,8 @@ const HistoryVideoGrid = () => {
       </div>
       {!history.loading && history.data.length == 0 && (
         <div className="w-full h-4-6 grid place-content-center place-items-center gap-1">
-          <h2>History is empty</h2>
+          <NotAvailable title="History is empty" />
+
           <Link to="/" className="btn btn-primary w-fit">
             View videos
           </Link>

@@ -13,6 +13,7 @@ import {
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
 } from "../utils";
+import { usePlaylist } from "./PlaylistsContext";
 import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
@@ -126,6 +127,8 @@ const AuthProvider = ({ children }) => {
     });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    setPlaylists({ type: ACTION_TYPE_SUCCESS, payload: [] });
+    setPlaylistsInfo(new Map());
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };

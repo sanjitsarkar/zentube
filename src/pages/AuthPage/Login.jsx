@@ -52,6 +52,17 @@ const LoginPage = () => {
             </label>
           </div>
           <button className="btn btn-dark w-full text-lg mb-2">Login</button>
+          <button
+            className="btn btn-info w-full text-md mb-1"
+            onClick={() => {
+              setLoginCred({
+                email: "johndoe@gmail.com",
+                password: "johndoe123",
+              });
+            }}
+          >
+            Guest Login
+          </button>
           <a href="#" className="text-dark-4 block mb-05">
             Forgot Password?
           </a>

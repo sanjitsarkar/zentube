@@ -11,9 +11,11 @@ import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
-  const { setToast } = useToast();
-  const { isLoggedIn } = useAuth();
   const [isInWatchLater, setIsInWatchlater] = useState(false);
+  const { setToast } = useToast();
+  const { togglePlaylistModal, setVideo, setShowPlaylistList } =
+    usePlaylistModal();
+  const { isLoggedIn } = useAuth();
   useEffect(() => {
     watchLater.data.forEach((element) => {
       if (element._id == video._id) setIsInWatchlater(() => true);
@@ -46,6 +48,14 @@ const ActionBar = ({ video, show }) => {
               content: "Please login to add video to Playlist",
               type: "warning",
             });
+<<<<<<< HEAD
+=======
+          else {
+            togglePlaylistModal();
+            setShowPlaylistList(true);
+            setVideo(video);
+          }
+>>>>>>> pages/playlist-details-page
         }}
       />
     </div>
