@@ -2,10 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { useAuth } from "../../context/AuthContext";
+import { useNav } from "../../context/NavContext";
 
 const SignupPage = () => {
   const { signUp, signupCred, setSignupCred } = useAuth();
-
+  const { setActiveItem } = useNav();
+  useEffect(() => {
+    setActiveItem("");
+  }, []);
   return (
     <>
       <Header />

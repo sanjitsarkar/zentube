@@ -12,8 +12,8 @@ const PlaylistCard = ({ playlist, playlistsInfo }) => {
           <div className="right bg-dark-8 ">
             {playlist.videos.length > 0 ? (
               <img
-                src={playlist.videos[playlist.videos.length - 1].thumbNail}
-                alt={playlist.videos[playlist.videos.length - 1].title}
+                src={playlist.videos[0].thumbNail}
+                alt={playlist.videos[0].title}
               />
             ) : (
               <img
