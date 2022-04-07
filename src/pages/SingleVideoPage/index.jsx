@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
-import VideoCard from "../../components/VideoCard.jsx";
 import { useVideos } from "../../context/VideosContext";
-<<<<<<< HEAD
 import RelatedVideos from "./RelatedVideos";
 import VideoInfo from "./VideoInfo";
 import "./SingleVideoPage.css";
@@ -20,14 +20,7 @@ const SingleVideoPage = () => {
     let videoId = pathName[pathName.length - 1];
     fetchVideoInfo(videoId);
   }, [location]);
-=======
->>>>>>> db8e5dcdd74776570063d97caee3d94d4811bbdf
 
-const RelatedVideos = ({ category, videoId }) => {
-  const { filterVideos, relatedVideos } = useVideos();
-  useEffect(async () => {
-    await filterVideos({ category, type: "related" });
-  }, []);
   return (
     <Layout>
       <div className="row flex-wrap ">
@@ -55,8 +48,8 @@ const RelatedVideos = ({ category, videoId }) => {
           </div>
         )}
       </div>
-    </div>
+    </Layout>
   );
 };
 
-export default RelatedVideos;
+export default SingleVideoPage;
