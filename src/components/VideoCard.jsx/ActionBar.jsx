@@ -5,14 +5,16 @@ import {
   WatchLaterIcon,
 } from "../../assets/icons";
 import { useAuth } from "../../context/AuthContext";
-import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useToast } from "../../context/ToastContext";
 import { useWatchLater } from "../../context/WatchLaterContext";
 import ActionButton from "./ActionButton";
 
 const ActionBar = ({ video, show }) => {
   const { watchLater, addToWatchLater, removeFromWatchLater } = useWatchLater();
+<<<<<<< HEAD
   const [isInWatchLater, setIsInWatchlater] = useState(false);
+=======
+>>>>>>> pages/history
   const { setToast } = useToast();
   const { togglePlaylistModal, setVideo, setShowPlaylistList } =
     usePlaylistModal();
@@ -49,11 +51,14 @@ const ActionBar = ({ video, show }) => {
               content: "Please login to add video to Playlist",
               type: "warning",
             });
+<<<<<<< HEAD
           else {
             togglePlaylistModal();
             setShowPlaylistList(true);
             setVideo(video);
           }
+=======
+>>>>>>> pages/history
         }}
       />
     </div>
