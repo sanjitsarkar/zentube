@@ -93,7 +93,6 @@ const WatchLaterProvider = ({ children }) => {
   };
   const removeFromWatchLater = (id) => {
     dispatch({ type: ACTION_TYPE_LOADING });
-
     if (!isLoggedIn) {
       setToast({
         show: true,
