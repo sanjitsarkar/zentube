@@ -3,7 +3,7 @@
 #### It's a video streaming website for music lovers built with ReactJS.
 
 
-[![GitHub followers](https://img.shields.io/github/followers/irohitgaur?style=social)](https://github.com/sanjitsarkar)
+[![GitHub followers](https://img.shields.io/github/followers/sanjitsarkar?style=social)](https://github.com/sanjitsarkar)
 &emsp;
 ![Forks](https://img.shields.io/github/forks/sanjitsarkar/zentube)
 &emsp;
