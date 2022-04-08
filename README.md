@@ -16,6 +16,10 @@
 
 ## Live Website: [ZenTube](https://zentube.netlify.app/)
 
+## Video Demo:
+https://user-images.githubusercontent.com/8179761/162470244-a9af56a5-03c2-46bd-bfc5-f12794caa4b6.mp4
+
+
 ---
 
 ## Get started
