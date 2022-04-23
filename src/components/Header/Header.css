@@ -1,9 +1,10 @@
 header#header {
   z-index: 1;
+  padding: 1rem 2rem;
 }
 
 header .input-box {
-  min-width: 40vw;
+  min-width: 30vw;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -11,16 +12,29 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 1em;
   width: 1em;
   border-radius: 50em;
-  background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+  background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
+    no-repeat 50% 50%;
   background-size: contain;
   opacity: 0;
   pointer-events: none;
   -webkit-filter: invert(1);
-          filter: invert(1);
+  filter: invert(1);
 }
 
 input[type="search"]:focus::-webkit-search-cancel-button {
   opacity: 0.3;
   pointer-events: all;
+}
+
+@media all and (max-width: 450px) {
+  .title {
+    display: none;
+  }
+  header#header {
+    padding: 1rem;
+  }
+  header .input-box {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=Header.css.map */

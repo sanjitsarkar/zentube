@@ -5,7 +5,7 @@ import { useNav } from "../../context/NavContext";
 const SideBar = () => {
   const { sideBarItems, activeItem, setActiveItem } = useNav();
   return (
-    <ul className="side-bar col bx-sh-primary-2 h-screen ">
+    <ul className="side-bar col bx-sh-primary-2 h-screen bg-dark">
       {sideBarItems.map((item) => (
         <SideBarItem
           to={item.to}

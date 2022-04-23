@@ -7,7 +7,7 @@ const SideBarItem = ({ icon, name, active, setActive, to }) => {
       <Link
         onClick={() => setActive(name)}
         to={`/${to === "home" ? "" : to}`}
-        className={`list-item text-center col gap-025 items-center list-item p-2  ${
+        className={`list-item text-center col gap-025 items-center list-item p-2 h-full justify-center  ${
           active ? "item-active" : ""
         }`}
       >

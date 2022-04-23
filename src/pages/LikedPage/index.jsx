@@ -14,7 +14,7 @@ const LikedPage = () => {
   return (
     <Layout>
       {!isLoggedIn ? (
-        <div className="w-full h-4-6 grid place-content-center">
+        <div className="text-center w-full h-4-6 grid place-content-center">
           <h2>
             <Link to="/login" className="text-primary">
               Log In

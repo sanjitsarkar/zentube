@@ -68,8 +68,17 @@ img.card-img:hover ~ i.fa-play {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
-
-#video-card {
+.related-video-grid {
+  min-width: 50vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+#small-card {
+  max-width: 100%;
+  width: unset;
+  min-width: 15rem;
+}
+#medium-card {
   max-width: 100%;
   width: unset;
   min-width: 16rem;

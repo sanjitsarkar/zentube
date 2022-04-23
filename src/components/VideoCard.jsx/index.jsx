@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { convertViewCount, timeSince } from "../../utils";
 import ActionBar from "./ActionBar";
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, small = false }) => {
   const [showActionBar, setShowActionBar] = useState(false);
   return (
-    <div className="card card-md card-dark" id="video-card">
+    <div
+      className="card card-md card-dark"
+      id={`${!small ? "medium-card" : "small-card"}`}
+    >
       <Link to={`/watch/v/${video._id}`}>
         <div className="card-header relative grid place-items-center">
           <i className="fa fa-play absolute fa-2x text-primary o-80 play-icon"></i>

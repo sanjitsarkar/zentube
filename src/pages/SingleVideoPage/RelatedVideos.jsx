@@ -18,12 +18,12 @@ const RelatedVideos = ({ category, videoId }) => {
       </div>
 
       {relatedVideos.loading && <Loader />}
-      <div className=" mt-3 gap-05 video-grid">
+      <div className="mt-3 gap-05 related-video-grid">
         {!relatedVideos.loading &&
           relatedVideos.data.length > 0 &&
           relatedVideos.data.map((video, i) => {
             if (video._id !== videoId)
-              return <VideoCard video={video} key={video._id} />;
+              return <VideoCard video={video} key={video._id} small={true} />;
           })}
       </div>
     </div>

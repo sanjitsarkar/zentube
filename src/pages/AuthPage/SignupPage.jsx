@@ -11,8 +11,7 @@ const SignupPage = () => {
     setActiveItem("");
   }, []);
   return (
-    <>
-      <Header />
+    <l>
       <main className="form-container h-full t-0  l-0 r-0 relative grid place-content-center text-dark w-full">
         <form
           className="form p-5  br-sm text-dark b-solid b-1  br-light bx-sh-light-3 "
@@ -26,7 +25,7 @@ const SignupPage = () => {
               <i className="fa fa-user"></i>
               <input
                 type="text"
-                placeholder="Enter your First name"
+                placeholder="Enter your first name"
                 className="input"
                 defaultValue={signupCred.firstName}
                 onChange={(e) =>
@@ -39,8 +38,8 @@ const SignupPage = () => {
               <i className="fa fa-user"></i>
               <input
                 type="text"
-                placeholder="Enter your name"
-                className="name"
+                placeholder="Enter your last name"
+                className="input"
                 aria-label=""
                 defaultValue={signupCred.lastName}
                 onChange={(e) =>
@@ -100,7 +99,7 @@ const SignupPage = () => {
           </Link>
         </form>
       </main>
-    </>
+    </l>
   );
 };
 
