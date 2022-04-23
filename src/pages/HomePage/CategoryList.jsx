@@ -7,7 +7,7 @@ import Category from "./Category";
 const CategoryList = () => {
   const { categories, activeCategory, setActiveCategory } = useCategory();
   return (
-    <div className="row gap-1">
+    <div className="row categories">
       <Category
         name="All"
         active={activeCategory === "All"}

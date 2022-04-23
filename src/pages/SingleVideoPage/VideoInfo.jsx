@@ -51,8 +51,8 @@ const VideoInfo = ({ video }) => {
     <div className="w-screen">
       <Iframe
         width="100%"
-        height="500px"
-        className="bg-black"
+        // height="500px"
+        className="bg-black iframe-video"
         id="iframe"
         src={`https://www.youtube.com/embed/${videoId}`}
         onInferredClick={() => addToHistory(video)}

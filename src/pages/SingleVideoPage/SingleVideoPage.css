@@ -1,4 +1,7 @@
 .video-info {
   border: 1px solid var(--grey-color-7);
 }
+iframe {
+  aspect-ratio: 16/9;
+}
 /*# sourceMappingURL=SingleVideoPage.css.map */

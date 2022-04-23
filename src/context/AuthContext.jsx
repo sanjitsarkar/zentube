@@ -6,7 +6,7 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage?.getItem("token"));
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
   const [signupCred, setSignupCred] = useState(initialSignupCredState);
-
+  const location = useLocation();
   const signUp = (e) => {
     e.preventDefault();
     dispatch({ type: ACTION_TYPE_LOADING });
@@ -138,7 +138,7 @@ const AuthProvider = ({ children }) => {
     if (isLoggedIn) {
       setToken(localStorage.getItem("token"));
       localStorage.setItem("user", JSON.stringify(state.data));
-      navigate("/", { replace: true });
+      if (location.pathname !== "/") navigate("/", { replace: true });
     }
   }, [isLoggedIn]);
   useEffect(() => {

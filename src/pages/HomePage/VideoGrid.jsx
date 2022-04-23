@@ -10,7 +10,7 @@ const VideoGrid = () => {
   return (
     <>
       {videos.loading && <Loader />}
-      <div className="grid mt-3 gap-1 video-grid  w-full">
+      <div className="grid  gap-1 video-grid  w-full">
         {!videos.loading &&
           videos.data.length > 0 &&
           videos.data.map((video, i) => (
