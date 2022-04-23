@@ -16,7 +16,7 @@ main.main {
     gap: 0;
   }
   main.main {
-    padding-bottom: 20vh;
+    padding-bottom: 7rem;
   }
   .side-bar {
     width: 100%;
@@ -29,6 +29,11 @@ main.main {
     z-index: 2;
   }
 }
+@media screen and (max-width: 504px) {
+  main.main {
+    padding-bottom: 9rem;
+  }
+}
 
 @media screen and (max-width: 420px) {
   .card {
@@ -37,11 +42,9 @@ main.main {
   .item-name {
     display: none;
   }
-}
-
-@media only screen and (max-width: 430px) {
   main.main {
-    padding: 0.5rem;
+    padding-bottom: 0.5rem 0;
   }
 }
+
 /*# sourceMappingURL=Layout.css.map */
