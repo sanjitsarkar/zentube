@@ -6,9 +6,9 @@ const Layout = ({ children }) => {
   return (
     <div className="">
       <Header />
-      <div className="body flex gap-1 ">
+      <div className="body flex gap-1 h-screen">
         <SideBar />
-        <main className="main p-3 "> {children}</main>
+        <main className="main"> {children}</main>
       </div>
     </div>
   );

@@ -88,3 +88,13 @@ export { ACTION_TYPE_FAILURE, ACTION_TYPE_SUCCESS, ACTION_TYPE_LOADING };
 
 export const NOT_AVAILABLE_IMAGE_URL =
   "https://booyah.live/ssr/_next/static/images/empty-vod-dark-mode.404178ec.png";
+
+export function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}

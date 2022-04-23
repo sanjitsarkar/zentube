@@ -25,6 +25,7 @@ const Header = () => {
           <div className="input-box input input-dark">
             <i className="fa fa-search"></i>
             <input
+              aria-label="search"
               type="search"
               placeholder="Search videos..."
               className="input"
@@ -49,7 +50,11 @@ const Header = () => {
         >
           {!isLoggedIn && (
             <li>
-              <Link to="/login" className="btn btn-primary auth-button">
+              <Link
+                to="/login"
+                className="btn btn-primary auth-button"
+                aria-label="Login"
+              >
                 Login
               </Link>
             </li>
@@ -57,6 +62,7 @@ const Header = () => {
           {isLoggedIn && (
             <li>
               <button
+                aria-label="Logut"
                 className="btn btn-secondary auth-button"
                 onClick={logOut}
               >

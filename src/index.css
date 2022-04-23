@@ -66,13 +66,11 @@ img.card-img:hover ~ i.fa-play {
   min-width: 70vw;
   display: -ms-grid;
   display: grid;
-  justify-items: center;
-  -ms-grid-columns: (minmax(16rem, 1fr)) [auto-fill];
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
 
 #video-card {
-  max-width: 30rem;
+  max-width: 100%;
   width: unset;
   min-width: 16rem;
 }
@@ -82,26 +80,6 @@ form.form {
   background-color: var(--light-grey);
   margin-bottom: 15vh;
   margin-top: 20vh;
-}
-@media only screen and (max-width: 525px) {
-  main.main {
-    margin-top: 10vw;
-  }
-}
-@media only screen and (max-width: 430px) {
-  main.main {
-    margin-top: 20vw;
-  }
-}
-@media only screen and (max-width: 340px) {
-  main.main {
-    margin-top: 25vw;
-  }
-}
-@media only screen and (max-width: 255px) {
-  main.main {
-    margin-top: 35vw;
-  }
 }
 
 @media only screen and (max-width: 535px) {

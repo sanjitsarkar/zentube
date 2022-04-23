@@ -22,6 +22,7 @@ const LoginPage = () => {
             <div className="input-box input input-light">
               <i className="fa fa-user"></i>
               <input
+                aria-label="email"
                 type="text"
                 placeholder="Enter your email"
                 className="input"
@@ -35,6 +36,7 @@ const LoginPage = () => {
             <div className="input-box input input-light">
               <i className="fa fa-lock"></i>
               <input
+                aria-label="password"
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Enter your password"
                 className="input"
@@ -59,7 +61,12 @@ const LoginPage = () => {
               <span className="checkmark"></span>
             </label>
           </div>
-          <button className="btn btn-dark w-full text-lg mb-2">Login</button>
+          <button
+            className="btn btn-dark w-full text-lg mb-2"
+            aria-label="Login"
+          >
+            Login
+          </button>
           <button
             className="btn btn-info w-full text-md mb-1"
             onClick={() => {
@@ -74,7 +81,7 @@ const LoginPage = () => {
           <a href="#" className="text-dark-4 block mb-05">
             Forgot Password?
           </a>
-          <Link to="/signup" className="text-dark-4 block">
+          <Link to="/signup" className="text-dark-4 block" aria-label="Signup">
             Don't have an account?
           </Link>
         </form>

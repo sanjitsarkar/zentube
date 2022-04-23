@@ -11,10 +11,14 @@ const RelatedVideos = ({ category, videoId }) => {
   return (
     <div className="mt-3">
       <h3>Related Videos</h3>
-      <div className={`btn font-bold  btn-primary tag mt-2`}>{category}</div>
+      <div
+        className={`w-max font-bold  btn-primary tag mt-2 p-05 pl-1 pr-1 br-sm`}
+      >
+        {category}
+      </div>
 
       {relatedVideos.loading && <Loader />}
-      <div className=" mt-3 gap-05 video-grid  ">
+      <div className=" mt-3 gap-05 video-grid">
         {!relatedVideos.loading &&
           relatedVideos.data.length > 0 &&
           relatedVideos.data.map((video, i) => {

@@ -11,6 +11,7 @@ import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  shuffle,
 } from "../utils";
 const VideosContext = createContext();
 
@@ -121,7 +122,7 @@ const VideosProvider = ({ children }) => {
       .then((res) => {
         dispatchVideos({
           type: ACTION_TYPE_SUCCESS,
-          payload: res.data.videos,
+          payload: shuffle(res.data.videos),
         });
       })
       .catch((err) => {

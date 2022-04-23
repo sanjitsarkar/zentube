@@ -4,6 +4,10 @@ import { useAuth } from "../context/AuthContext";
 export const useApi = () => {
   const { token } = useAuth();
   const callApi = async (method, endPoint, isProtected = false, data = {}) => {
+    if (isProtected) endPoint = `/api/user/${endPoint}`;
+    else {
+      endPoint = `/api/${endPoint}`;
+    }
     switch (method) {
       case "get": {
         return await axios.get(

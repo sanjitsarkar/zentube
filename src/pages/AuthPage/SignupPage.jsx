@@ -39,8 +39,9 @@ const SignupPage = () => {
               <i className="fa fa-user"></i>
               <input
                 type="text"
-                placeholder="Enter your Last name"
-                className="input"
+                placeholder="Enter your name"
+                className="name"
+                aria-label=""
                 defaultValue={signupCred.lastName}
                 onChange={(e) =>
                   setSignupCred({ ...signupCred, lastName: e.target.value })

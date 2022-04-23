@@ -1,11 +1,11 @@
 .body {
-  margin-top: 12vh;
+  margin-top: 9.7vh;
   height: 88vh;
-  overflow: hidden;
   position: relative;
 }
 
 main.main {
+  padding: 1rem;
   overflow-y: scroll;
 }
 
@@ -17,10 +17,7 @@ main.main {
     flex-direction: column;
     gap: 0;
   }
-  main.main {
-    height: 600%;
-    padding-bottom: 10vh;
-  }
+
   .side-bar {
     width: 100%;
     -webkit-box-orient: horizontal;
@@ -45,8 +42,26 @@ main.main {
   .item-name {
     display: none;
   }
+}
+@media only screen and (max-width: 525px) {
   main.main {
-    padding-bottom: 10vh;
+    margin-top: 10vw;
+  }
+}
+@media only screen and (max-width: 430px) {
+  main.main {
+    padding: 0.5rem;
+    margin-top: 20vw;
+  }
+}
+@media only screen and (max-width: 340px) {
+  main.main {
+    margin-top: 25vw;
+  }
+}
+@media only screen and (max-width: 255px) {
+  main.main {
+    margin-top: 35vw;
   }
 }
 /*# sourceMappingURL=Layout.css.map */
