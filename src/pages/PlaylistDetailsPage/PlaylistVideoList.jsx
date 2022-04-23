@@ -1,6 +1,5 @@
 import React from "react";
 import VideoCard from "../../components/VideoCard.jsx";
-import { usePlaylist } from "../../context/PlaylistsContext.jsx";
 
 const PlaylistVideoList = ({ playlist }) => {
   return (
