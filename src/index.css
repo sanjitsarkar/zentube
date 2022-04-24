@@ -103,7 +103,7 @@ form.form {
 
 #toast {
   right: 1rem;
-  top: 16vh;
+  top: 15vh;
   left: auto;
 }
 
@@ -160,5 +160,9 @@ textarea {
 
 .playlist-card .card-top img {
   height: 13rem;
+}
+
+iframe {
+  aspect-ratio: 16/9;
 }
 /*# sourceMappingURL=index.css.map */
