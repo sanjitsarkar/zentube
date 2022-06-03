@@ -51,21 +51,21 @@
       "short_name": "Liked videos",
       "description": "View your liked videos",
       "url": "/liked",
-      "icons": [{ "src": "/images/android-chrome-192x192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "image/android-chrome-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "View your history",
       "short_name": "History",
       "description": "View your history",
       "url": "/history",
-      "icons": [{ "src": "/images/android-chrome-192x192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "image/android-chrome-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "View your watch later videos",
       "short_name": "Watch later",
       "description": "View your watch later videos",
       "url": "/watch-later",
-      "icons": [{ "src": "/images/android-chrome-192x192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "image/android-chrome-192x192.png", "sizes": "192x192" }]
     }
   ]
 }
