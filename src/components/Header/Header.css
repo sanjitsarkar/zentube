@@ -37,4 +37,10 @@ input[type="search"]:focus::-webkit-search-cancel-button {
     width: 100%;
   }
 }
+@media screen and (max-width: 616px) {
+  header .logo {
+    display: none;
+  }
+
+}
 /*# sourceMappingURL=Header.css.map */

@@ -1,5 +1,5 @@
-import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
+import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
 const sign = require("jwt-encode");
 /**
@@ -71,6 +71,7 @@ export const loginHandler = function (schema, request) {
         { errors: ["The email you entered is not Registered. Not Found error"] }
       );
     }
+    console.log(process.env.REACT_APP_JWT_SECRET);
     if (password === foundUser.password) {
       const encodedToken = sign(
         { _id: foundUser._id, email },

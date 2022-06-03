@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LOGO from "../../assets/logo.png";
 import { useAuth } from "../../context/AuthContext";
 import { useNav } from "../../context/NavContext";
 import { useVideos } from "../../context/VideosContext";
-
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut } = useAuth();
@@ -18,8 +18,11 @@ const Header = () => {
       <div className="row items-center justify-between w-full flex-nowrap gap-1">
         <div className="row gap-1 items-center flex-nowrap ">
           <div className="left title">
-            <Link to="/" className="text-2xl">
-              Zen<span className="text-primary">Tube</span>
+            <Link to="/" className="text-2xl row gap-1 items-center">
+              <img src={LOGO} alt="ZenTube" className="w-10 logo" />
+              <span>
+                Zen<span className="text-primary">Tube</span>
+              </span>
             </Link>
           </div>
           <div className="input-box input input-dark">
