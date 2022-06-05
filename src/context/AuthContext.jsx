@@ -64,8 +64,6 @@ const AuthProvider = ({ children }) => {
         dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.createdUser });
       })
       .catch((err) => {
-        console.log(signupCred);
-        console.log("err", err);
         if (err.message)
           setToast({
             show: true,
