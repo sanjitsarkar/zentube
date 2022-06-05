@@ -1,6 +1,6 @@
 import MockmanEs from "mockman-js";
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AddToPlaylistModal from "./components/AddToPlaylistModal";
 import PrivateRoute from "./components/PrivateRoute";
 import Toast from "./components/Toast";
@@ -8,11 +8,11 @@ import { useToast } from "./context/ToastContext";
 import {
   HistoryPage,
   HomePage,
-  LoginPage,
-  SignupPage,
   LikedPage,
+  LoginPage,
   PlaylistDetailsPage,
   PlaylistsPage,
+  SignupPage,
   SingleVideoPage,
   WatchLaterPage,
 } from "./pages";
@@ -30,14 +30,9 @@ function App() {
         <Route path="/liked" element={<LikedPage />} />
         <Route path="/playlist" element={<PlaylistsPage />} />
 
-        <Route
-          path="/playlists/:id"
-          element={
-            <PrivateRoute>
-              <PlaylistDetailsPage />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/playlists/:id" element={<PlaylistDetailsPage />} />
+        </Route>
 
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
         <Route path="/login" element={<LoginPage />} />

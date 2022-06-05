@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import { useAuth } from "../../context/AuthContext";
+import { useNav } from "../../context/NavContext";
 
 const LoginPage = () => {
-  const { logIn, loginCred, setLoginCred } = useAuth();
+  const { logIn, loginCred, setLoginCred, isLoggedIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-
+  const { setActiveItem } = useNav();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setActiveItem("");
+  }, []);
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (pathname === "/signup") navigate("/", { replace: true });
+      else if (pathname !== "/") navigate(-1, { replace: true });
+    }
+  }, [isLoggedIn, pathname]);
   return (
     <>
       <Header />
@@ -40,6 +52,7 @@ const LoginPage = () => {
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Enter your password"
                 className="input"
+                minLength={6}
                 defaultValue={loginCred.password}
                 onChange={(e) =>
                   setLoginCred({ ...loginCred, password: e.target.value })
