@@ -1,7 +1,5 @@
 import React from "react";
-import Loader from "../../components/Loader";
-import { useCategory } from "../../context/CategoryContext";
-import { useVideos } from "../../context/VideosContext";
+import { useCategory } from "../../context";
 import Category from "./Category";
 
 const CategoryList = () => {

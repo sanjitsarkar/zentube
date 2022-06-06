@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";
-import { useLikedVideos } from "../../context/LikedVideosContext";
+import { useLikedVideos } from "../../context";
 import LikedVideoCard from "./LikedVideoCard";
 
 const LikedVideoGrid = () => {

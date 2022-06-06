@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PlaylistPlayIcon } from "../../assets/icons";
-import { usePlaylist } from "../../context/PlaylistsContext";
+import { usePlaylist } from "../../context";
 
 const PlaylistCard = ({ playlist, playlistsInfo }) => {
   const { removePlaylist } = usePlaylist();

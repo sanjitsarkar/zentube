@@ -1,19 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
-import { VideosProvider } from "./context/VideosContext";
-import { NavProvider } from "./context/NavContext";
-import { WatchLaterProvider } from "./context/WatchLaterContext";
-import { ToastProvider } from "./context/ToastContext";
-import { AuthProvider } from "./context/AuthContext";
-import { LikedVideosProvider } from "./context/LikedVideosContext";
+import App from "./App";
+import {
+  AuthProvider,
+  HistoryProvider,
+  NavProvider,
+  PlaylistProvider,
+  VideosProvider,
+  WatchLaterProvider,
+} from "./context";
 import { CategoryProvider } from "./context/CategoryContext";
-import { HistoryProvider } from "./context/HistoryContext";
-import { PlaylistProvider } from "./context/PlaylistsContext";
+import { LikedVideosProvider } from "./context/LikedVideosContext";
 import { PlaylistModalProvider } from "./context/PlaylistModalContext";
+import { ToastProvider } from "./context/ToastContext";
+import "./index.css";
+import { makeServer } from "./server";
 
 // Call make Server
 makeServer();

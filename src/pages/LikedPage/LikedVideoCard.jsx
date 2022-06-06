@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLikedVideos } from "../../context/LikedVideosContext";
+import { useLikedVideos } from "../../context";
 import { convertViewCount, timeSince } from "../../utils";
 
 const LikedVideoCard = ({ video }) => {

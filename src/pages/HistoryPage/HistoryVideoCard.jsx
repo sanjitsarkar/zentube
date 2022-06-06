@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "../../context/HistoryContext";
+import { useHistory } from "../../context";
 import { convertViewCount, timeSince } from "../../utils";
 
 const HistoryVideoCard = ({ video }) => {

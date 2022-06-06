@@ -5,12 +5,10 @@ import {
   LikedIcon,
   WatchLaterIcon,
 } from "../../assets/icons";
-import { useAuth } from "../../context/AuthContext";
-import { useHistory } from "../../context/HistoryContext";
+import { useAuth, useHistory, useWatchLater } from "../../context";
 import { useLikedVideos } from "../../context/LikedVideosContext";
 import { usePlaylistModal } from "../../context/PlaylistModalContext";
 import { useToast } from "../../context/ToastContext";
-import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertTimestampToDate } from "../../utils";
 
 const VideoInfo = ({ video }) => {
@@ -51,7 +49,6 @@ const VideoInfo = ({ video }) => {
     <div className="w-screen">
       <Iframe
         width="100%"
-        // height="500px"
         className="bg-black iframe-video"
         id="iframe"
         src={`https://www.youtube.com/embed/${videoId}`}

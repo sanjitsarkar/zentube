@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
-import { useVideos } from "../../context/VideosContext";
-import RelatedVideos from "./RelatedVideos";
-import VideoInfo from "./VideoInfo";
-import "./SingleVideoPage.css";
-import { useNav } from "../../context/NavContext";
 import NotAvailable from "../../components/NotAvailable";
+import { useNav, useVideos } from "../../context";
+import RelatedVideos from "./RelatedVideos";
+import "./SingleVideoPage.css";
+import VideoInfo from "./VideoInfo";
 const SingleVideoPage = () => {
   const location = useLocation();
   const { setActiveItem } = useNav();

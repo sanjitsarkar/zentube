@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Loader from "../../components/Loader/index.jsx";
 import NotAvailable from "../../components/NotAvailable/index.jsx";
 import VideoCard from "../../components/VideoCard.jsx";
-import { useVideos } from "../../context/VideosContext.jsx";
+import { useVideos } from "../../context";
 
 const VideoGrid = () => {
   const { videos } = useVideos();

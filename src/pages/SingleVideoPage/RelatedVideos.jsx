@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Loader from "../../components/Loader";
 import VideoCard from "../../components/VideoCard.jsx";
-import { useVideos } from "../../context/VideosContext";
+import { useVideos } from "../../context";
 
 const RelatedVideos = ({ category, videoId }) => {
   const { filterVideos, relatedVideos } = useVideos();

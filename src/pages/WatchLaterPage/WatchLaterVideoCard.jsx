@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useWatchLater } from "../../context/WatchLaterContext";
+import { useWatchLater } from "../../context";
 import { convertViewCount, timeSince } from "../../utils";
 
 const WatchLaterVideoCard = ({ video }) => {

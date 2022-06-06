@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Iframe from "react-iframe-click";
 import { LikedIcon, WatchLaterIcon } from "../../assets/icons";
-import { useHistory } from "../../context/HistoryContext";
+import { useHistory, usePlaylist, useWatchLater } from "../../context";
 import { useLikedVideos } from "../../context/LikedVideosContext";
-import { usePlaylistModal } from "../../context/PlaylistModalContext";
-import { usePlaylist } from "../../context/PlaylistsContext";
-import { useWatchLater } from "../../context/WatchLaterContext";
 import { convertTimestampToDate } from "../../utils";
 
 const PlaylistVideoInfo = ({ playlist }) => {

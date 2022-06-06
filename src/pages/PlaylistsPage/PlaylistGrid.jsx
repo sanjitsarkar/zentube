@@ -2,8 +2,8 @@ import React from "react";
 import { AddToPlaylistIcon } from "../../assets/icons";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";
+import { usePlaylist } from "../../context";
 import { usePlaylistModal } from "../../context/PlaylistModalContext";
-import { usePlaylist } from "../../context/PlaylistsContext";
 import PlaylistCard from "./PlaylistCard";
 
 const PlaylistGrid = () => {

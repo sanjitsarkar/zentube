@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { AddToPlaylistIcon, PlaySpeedIcon } from "../../assets/icons";
+import { usePlaylist } from "../../context";
 import { usePlaylistModal } from "../../context/PlaylistModalContext";
-import { usePlaylist } from "../../context/PlaylistsContext";
-import Loader from "../Loader";
 
 const AddToPlaylistModal = () => {
   const {

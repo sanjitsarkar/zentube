@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LOGO from "../../assets/logo.png";
-import { useAuth } from "../../context/AuthContext";
-import { useNav } from "../../context/NavContext";
-import { useVideos } from "../../context/VideosContext";
+import { useAuth, useNav, useVideos } from "../../context";
 import "./Header.css";
 const Header = () => {
   const { isLoggedIn, logOut } = useAuth();
-  const { searchVideos, filters, setFilters } = useVideos();
+  const { filterVideos, filters, setFilters } = useVideos();
   const { activeItem } = useNav();
   const navigate = useNavigate();
+  useEffect(() => {
+    (async () => {
+      await filterVideos({ type: "video", ...filters });
+    })();
+  }, [filters]);
   return (
     <header
       id="header"
@@ -36,11 +39,9 @@ const Header = () => {
               onClick={() => {
                 if (activeItem !== "Home") navigate("/");
               }}
-              onChange={async (e) => {
-                await searchVideos(e.target.value);
-                setFilters((_filters) => {
-                  return { ..._filters, search: e.target.value };
-                });
+              onChange={(e) => {
+                const _filters = { ...filters, search: e.target.value };
+                setFilters(_filters);
               }}
             />
           </div>

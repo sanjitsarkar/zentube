@@ -1,17 +1,16 @@
 import React, {
-  useEffect,
   createContext,
   useContext,
+  useEffect,
   useReducer,
   useState,
 } from "react";
-import axios from "axios";
-import { useApi } from "../hooks/useApi";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
 } from "../utils";
 import { useAuth } from "./AuthContext";
 import { useToast } from "./ToastContext";
@@ -26,7 +25,6 @@ const PlaylistProvider = ({ children }) => {
   const { isLoggedIn } = useAuth();
   const [activeVideo, setActiveVideo] = useState();
   const { setToast } = useToast();
-  const { callApi } = useApi();
   const fetchPlaylist = async () => {
     dispatchPlaylists({ type: ACTION_TYPE_LOADING });
     try {

@@ -1,3 +1,5 @@
+export { callApi } from "./callApi";
+export { ACTION_TYPE_FAILURE, ACTION_TYPE_SUCCESS, ACTION_TYPE_LOADING };
 export function convertViewCount(viewCount) {
   return Math.abs(Number(viewCount)) >= 1.0e9
     ? (Math.abs(Number(viewCount)) / 1.0e9).toFixed(2) + "B"
@@ -84,7 +86,6 @@ const ACTION_TYPE_LOADING = "LOADING";
 const ACTION_TYPE_SUCCESS = "SUCCESS";
 const ACTION_TYPE_FAILURE = "FAILURE";
 
-export { ACTION_TYPE_FAILURE, ACTION_TYPE_SUCCESS, ACTION_TYPE_LOADING };
 
 export const NOT_AVAILABLE_IMAGE_URL =
   "https://booyah.live/ssr/_next/static/images/empty-vod-dark-mode.404178ec.png";
@@ -97,4 +98,7 @@ export function shuffle(array) {
     array[j] = temp;
   }
   return array;
+}
+export const getHTTPStatusCode = (err)=>{
+  return err.message.slice(err.message.lastIndexOf(" ") + 1);
 }

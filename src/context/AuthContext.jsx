@@ -1,11 +1,12 @@
-import axios from "axios";
 import React, { createContext, useContext, useReducer, useState } from "react";
 import { reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  getHTTPStatusCode,
 } from "../utils";
+import { callApi } from "../utils/callApi";
 import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
@@ -28,95 +29,86 @@ const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage?.getItem("user") ? true : false
   );
-  const [token, setToken] = useState(localStorage?.getItem("token"));
   const [loginCred, setLoginCred] = useState(initialLoginCredState);
   const [signupCred, setSignupCred] = useState(initialSignupCredState);
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     dispatch({ type: ACTION_TYPE_LOADING });
-    if (signupCred.password !== signupCred.confirmPassword) {
+    try {
+      if (signupCred.password !== signupCred.confirmPassword) {
+        setToast({
+          show: true,
+          content: "Passwords do not match",
+          type: "info",
+        });
+        return;
+      }
+      const result = await callApi("post", "auth/signup", false, {
+        firstName: signupCred.firstName,
+        lastName: signupCred.lastName,
+        email: signupCred.email,
+        password: signupCred.password,
+      });
       setToast({
         show: true,
-        content: "Passwords do not match",
+        content: `Welcome, ${result.data.createdUser.firstName}`,
         type: "info",
       });
-      return;
-    }
-    axios
-      .post(
-        "/api/auth/signup",
-        JSON.stringify({
-          firstName: signupCred.firstName,
-          lastName: signupCred.lastName,
-          email: signupCred.email,
-          password: signupCred.password,
-        })
-      )
-      .then((res) => {
+      setLoginCred(initialLoginCredState);
+      setSignupCred(initialSignupCredState);
+      storeUserData(result.data.createdUser);
+      dispatch({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.createdUser,
+      });
+    } catch (err) {
+      if (err.message)
         setToast({
           show: true,
-          content: `Welcome, ${res.data.createdUser.firstName}`,
-          type: "info",
+          content: "Email is already registered",
+          type: "error",
         });
-        setLoginCred(initialLoginCredState);
-        setSignupCred(initialSignupCredState);
-        storeUserData(res.data.createdUser);
-        dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.createdUser });
-      })
-      .catch((err) => {
-        if (err.message)
-          setToast({
-            show: true,
-            content: "Email is already registered",
-            type: "error",
-          });
 
-        dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
-      });
+      dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
+    }
   };
-  const logIn = (e) => {
+  const logIn = async (e) => {
     e.preventDefault();
     dispatch({ type: ACTION_TYPE_LOADING });
+    try {
+      const result = await callApi("post", "auth/login", false, {
+        email: loginCred.email,
+        password: loginCred.password,
+      });
+      setToast({
+        show: true,
+        content: `Welcome, ${result.data.foundUser.firstName}`,
+        type: "info",
+      });
+      localStorage.setItem("token", result.data.encodedToken);
+      setLoginCred(initialLoginCredState);
+      setSignupCred(initialSignupCredState);
+      storeUserData(result.data.foundUser);
+      dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data.foundUser });
 
-    axios
-      .post(
-        "/api/auth/login",
-        JSON.stringify({
-          email: loginCred.email,
-          password: loginCred.password,
-        })
-      )
-      .then((res) => {
+      setIsLoggedIn(true);
+    } catch (err) {
+      if (getHTTPStatusCode(err) === "401")
         setToast({
           show: true,
-          content: `Welcome, ${res.data.foundUser.firstName}`,
-          type: "info",
+          content: "Wrong Password",
+          type: "error",
         });
-        localStorage.setItem("token", res.data.encodedToken);
-        setLoginCred(initialLoginCredState);
-        setSignupCred(initialSignupCredState);
-        storeUserData(res.data.foundUser);
-        dispatch({ type: ACTION_TYPE_SUCCESS, payload: res.data.foundUser });
+      else if (getHTTPStatusCode(err) === "404")
+        setToast({
+          show: true,
+          content: "Email is not registered yet",
+          type: "error",
+        });
+      else setToast({ show: true, content: err.message, type: "error" });
 
-        setIsLoggedIn(true);
-      })
-      .catch((err) => {
-        if (err.message.slice(err.message.lastIndexOf(" ") + 1) === "401")
-          setToast({
-            show: true,
-            content: "Wrong Password",
-            type: "error",
-          });
-        else if (err.message.slice(err.message.lastIndexOf(" ") + 1) === "404")
-          setToast({
-            show: true,
-            content: "Email is not registered yet",
-            type: "error",
-          });
-        else setToast({ show: true, content: err.message, type: "error" });
-
-        dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
-      });
+      dispatch({ type: ACTION_TYPE_FAILURE, payload: err.message });
+    }
   };
   const logOut = () => {
     setToast({
@@ -124,21 +116,17 @@ const AuthProvider = ({ children }) => {
       content: `Goodbye, ${state.data.firstName}`,
       type: "warning",
     });
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };
   const storeUserData = (data) => {
-    setToken(localStorage.getItem("token"));
     localStorage.setItem("user", JSON.stringify(data));
-    localStorage.setItem("token", data.token);
     setIsLoggedIn(true);
   };
   return (
     <AuthContext.Provider
       value={{
-        token,
         user: state,
         setUser: dispatch,
         isLoggedIn,

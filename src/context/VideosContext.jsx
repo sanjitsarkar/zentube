@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, {
-  useEffect,
-  useState,
   createContext,
   useContext,
+  useEffect,
   useReducer,
+  useState,
 } from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
@@ -54,6 +54,7 @@ const VideosProvider = ({ children }) => {
     }
   };
   const filterVideos = (filters) => {
+    console.log("filtersxx", filters);
     if (filters.type === "related") {
       dispatchRelatedVideos({ type: ACTION_TYPE_LOADING });
     } else if (filters.type === "video") {
@@ -81,6 +82,12 @@ const VideosProvider = ({ children }) => {
         if (filters.type === "related") {
           dispatchRelatedVideos({ type: ACTION_TYPE_SUCCESS, payload: videos });
         } else if (filters.type === "video") {
+          if (filters.search) {
+            console.log(videos);
+            videos = videos.filter((video) =>
+              video.title.toLowerCase().includes(filters.search.toLowerCase())
+            );
+          }
           dispatchVideos({ type: ACTION_TYPE_SUCCESS, payload: videos });
         }
       })

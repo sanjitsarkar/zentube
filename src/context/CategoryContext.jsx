@@ -1,16 +1,16 @@
-import axios from "axios";
 import React, {
-  useState,
   createContext,
   useContext,
-  useReducer,
   useEffect,
+  useReducer,
+  useState,
 } from "react";
 import { initialState, reducer } from "../reducers/reducer";
 import {
   ACTION_TYPE_FAILURE,
   ACTION_TYPE_LOADING,
   ACTION_TYPE_SUCCESS,
+  callApi,
 } from "../utils";
 
 const CategoryContext = createContext();
@@ -22,39 +22,35 @@ const CategoryProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const fetchCategories = () => {
-    dispatchCategories({ type: ACTION_TYPE_LOADING });
-    axios
-      .get("/api/categories")
-      .then((res) => {
-        dispatchCategories({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.categories,
-        });
-      })
-      .catch((err) => {
-        dispatchCategories({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+  const fetchCategories = async () => {
+    try {
+      dispatchCategories({ type: ACTION_TYPE_LOADING });
+      const result = await callApi("get", "categories");
+      dispatchCategories({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.categories,
       });
+    } catch (err) {
+      dispatchCategories({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
   };
-  const fetchCategoryInfo = (categoryId) => {
+  const fetchCategoryInfo = async (categoryId) => {
     dispatchCategoryInfo({ type: ACTION_TYPE_LOADING });
-    axios
-      .get(`/api/categories/${categoryId}`)
-      .then((res) => {
-        dispatchCategoryInfo({
-          type: ACTION_TYPE_SUCCESS,
-          payload: res.data.category,
-        });
-      })
-      .catch((err) => {
-        dispatchCategoryInfo({
-          type: ACTION_TYPE_FAILURE,
-          payload: err.message,
-        });
+    try {
+      const result = await callApi("get", `categories/${categoryId}`);
+      dispatchCategoryInfo({
+        type: ACTION_TYPE_SUCCESS,
+        payload: result.data.categories,
       });
+    } catch (err) {
+      dispatchCategoryInfo({
+        type: ACTION_TYPE_FAILURE,
+        payload: err.message,
+      });
+    }
   };
   useEffect(() => {
     fetchCategories();

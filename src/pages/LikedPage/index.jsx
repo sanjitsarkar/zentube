@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout";
-import { useAuth } from "../../context/AuthContext";
-import { useNav } from "../../context/NavContext";
+import { useAuth, useNav } from "../../context";
 import LikedVideoGrid from "./LikedVideoGrid";
 
 const LikedPage = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";
-import { useWatchLater } from "../../context/WatchLaterContext";
+import { useWatchLater } from "../../context";
 import WatchLaterVideoCard from "./WatchLaterVideoCard";
 
 const WatchLaterGrid = () => {

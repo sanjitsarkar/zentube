@@ -1,8 +1,8 @@
 import React from "react";
-import { useVideos } from "../../context/VideosContext";
+import { useVideos } from "../../context";
 
 const Category = ({ name, active, setActive }) => {
-  const { filterVideos } = useVideos();
+  const { filterVideos, setFilters, filters } = useVideos();
 
   return (
     <button
@@ -11,7 +11,8 @@ const Category = ({ name, active, setActive }) => {
       } category-button`}
       onClick={() => {
         setActive(name);
-        filterVideos({ category: name, type: "video" });
+        const _filters = { ...filters, category: name };
+        setFilters(_filters);
       }}
     >
       {name}

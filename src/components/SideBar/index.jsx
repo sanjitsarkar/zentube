@@ -1,7 +1,7 @@
 import React from "react";
-import SideBarItem from "./SideBarItem";
+import { useNav } from "../../context";
 import "./SideBar.css";
-import { useNav } from "../../context/NavContext";
+import SideBarItem from "./SideBarItem";
 const SideBar = () => {
   const { sideBarItems, activeItem, setActiveItem } = useNav();
   return (

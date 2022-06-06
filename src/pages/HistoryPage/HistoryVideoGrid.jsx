@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import NotAvailable from "../../components/NotAvailable";
-import { useHistory } from "../../context/HistoryContext";
+import { useHistory } from "../../context";
 import HistoryVideoCard from "./HistoryVideoCard";
 
 const HistoryVideoGrid = () => {
