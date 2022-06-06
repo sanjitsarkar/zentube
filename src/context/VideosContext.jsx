@@ -54,7 +54,6 @@ const VideosProvider = ({ children }) => {
     }
   };
   const filterVideos = (filters) => {
-    console.log("filtersxx", filters);
     if (filters.type === "related") {
       dispatchRelatedVideos({ type: ACTION_TYPE_LOADING });
     } else if (filters.type === "video") {
@@ -83,7 +82,6 @@ const VideosProvider = ({ children }) => {
           dispatchRelatedVideos({ type: ACTION_TYPE_SUCCESS, payload: videos });
         } else if (filters.type === "video") {
           if (filters.search) {
-            console.log(videos);
             videos = videos.filter((video) =>
               video.title.toLowerCase().includes(filters.search.toLowerCase())
             );
