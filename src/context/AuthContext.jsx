@@ -8,6 +8,7 @@ import {
 } from "../utils";
 import { callApi } from "../utils/callApi";
 import { useToast } from "./ToastContext";
+export { useAuth, AuthProvider };
 
 const AuthContext = createContext();
 const initialSignupCredState = {
@@ -145,4 +146,3 @@ const AuthProvider = ({ children }) => {
 };
 
 const useAuth = () => useContext(AuthContext);
-export { useAuth, AuthProvider };
