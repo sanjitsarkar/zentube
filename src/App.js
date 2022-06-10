@@ -10,13 +10,13 @@ import {
   HomePage,
   LikedPage,
   LoginPage,
+  PageNotFound,
   PlaylistDetailsPage,
   PlaylistsPage,
   SignupPage,
   SingleVideoPage,
   WatchLaterPage,
 } from "./pages";
-import NotFound from "./pages/404";
 
 function App() {
   const { toast } = useToast();
@@ -37,7 +37,7 @@ function App() {
         <Route path="/watch/v/:id" element={<SingleVideoPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/mockman" element={<MockmanEs />} />
       </Routes>
       <Toast content={toast.content} type={toast.type} show={toast.show} />

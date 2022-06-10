@@ -1,3 +1,4 @@
+import PageNotFound from "./404Page";
 import LoginPage from "./AuthPage/Login";
 import SignupPage from "./AuthPage/SignupPage";
 import HistoryPage from "./HistoryPage";
@@ -9,6 +10,7 @@ import SingleVideoPage from "./SingleVideoPage";
 import WatchLaterPage from "./WatchLaterPage";
 
 export {
+  PageNotFound,
   LoginPage,
   SignupPage,
   HistoryPage,
