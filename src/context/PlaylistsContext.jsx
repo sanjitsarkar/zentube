@@ -96,6 +96,7 @@ const PlaylistProvider = ({ children }) => {
         payload: result.data.playlists,
       });
     } catch (err) {
+      console.log("error", err);
       setToast({
         show: true,
         content: "Error adding playlist",

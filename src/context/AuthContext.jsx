@@ -27,6 +27,7 @@ const initialState = {
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { setToast } = useToast();
+  const [token, setToken] = useState(localStorage?.getItem("token"));
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage?.getItem("user") ? true : false
   );
@@ -58,6 +59,8 @@ const AuthProvider = ({ children }) => {
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
       storeUserData(result.data.createdUser);
+      localStorage.setItem("token", result.data.encodedToken);
+      setToken(result.data.encodedToken);
       dispatch({
         type: ACTION_TYPE_SUCCESS,
         payload: result.data.createdUser,
@@ -86,9 +89,10 @@ const AuthProvider = ({ children }) => {
         content: `Welcome, ${result.data.foundUser.firstName}`,
         type: "info",
       });
-      localStorage.setItem("token", result.data.encodedToken);
       setLoginCred(initialLoginCredState);
       setSignupCred(initialSignupCredState);
+      localStorage.setItem("token", result.data.encodedToken);
+      setToken(result.data.encodedToken);
       storeUserData(result.data.foundUser);
       dispatch({ type: ACTION_TYPE_SUCCESS, payload: result.data.foundUser });
 
@@ -118,6 +122,7 @@ const AuthProvider = ({ children }) => {
       type: "warning",
     });
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     dispatch({ type: ACTION_TYPE_SUCCESS, payload: [] });
   };
@@ -128,6 +133,7 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        token,
         user: state,
         setUser: dispatch,
         isLoggedIn,

@@ -5,9 +5,9 @@ export const callApi = async (
   isProtected = false,
   data = {}
 ) => {
-  const token = JSON.parse(localStorage?.getItem("user"))?.token;
-  endPoint = `api/${endPoint}`;
-
+  const token = localStorage?.getItem("token");
+  if (isProtected) endPoint = `/api/user/${endPoint}`;
+  else endPoint = `/api/${endPoint}`;
   token &&
     isProtected &&
     axios.interceptors.request.use(

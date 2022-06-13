@@ -46,10 +46,11 @@ const PlaylistDetailsPage = () => {
           )}
         {!playlistVideos.loading && playlistVideos.data?.videos.length === 0 && (
           <div className="text-center w-full h-4-6 grid place-content-center">
-            <NotAvailable title="No video is available in the playlist" />
-            <Link to="/" className="btn btn-primary w-fit mt-2 ">
-              Go to Home
-            </Link>
+            <NotAvailable title="No video is available in the playlist">
+              <Link to="/" className="btn btn-primary w-fit mt-2 ">
+                Go to Home
+              </Link>
+            </NotAvailable>
           </div>
         )}
       </>
